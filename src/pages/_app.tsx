@@ -3,12 +3,28 @@ import '../styles/globals.css';
 import { SessionProvider } from 'next-auth/react';
 import type { AppType } from 'next/dist/shared/lib/utils';
 import { trpc } from '../utils/trpc';
+import Head from 'next/head';
 
 const MyApp: AppType = ({ Component, pageProps }) => {
     return (
-        <SessionProvider session={pageProps.session}>
-            <Component {...pageProps} />
-        </SessionProvider>
+        <>
+            <Head>
+                <title>Expense Tracker</title>
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1"
+                />
+                <meta name="theme-color" content="#000000" />
+                <meta
+                    name="Expense Tracker"
+                    content="An expense tracking react-app created by Arslaan Qadus"
+                />
+                <meta charSet="utf-8" />
+            </Head>
+            <SessionProvider session={pageProps.session}>
+                <Component {...pageProps} />
+            </SessionProvider>
+        </>
     );
 };
 
