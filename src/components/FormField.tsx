@@ -35,7 +35,7 @@ const FormField = ({
                 <div className="relative">
                     <input
                         {...field}
-                        placeholder="Password..."
+                        placeholder={placeholder}
                         type={showPassword ? 'text' : 'password'}
                         className=" rounded-lg p-4 w-full my-1 focus:border-green-600 focus:ring-green-600"
                         aria-invalid={error ? 'true' : 'false'}
