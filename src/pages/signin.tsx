@@ -68,7 +68,10 @@ const Signin = () => {
                 </button>
                 <button
                     className="flex text-white bg-blue-500 p-2 my-2 rounded-lg justify-center"
-                    onClick={() => router.push('/register')}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        router.push('/register');
+                    }}
                 >
                     Register
                 </button>
