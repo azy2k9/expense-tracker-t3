@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FcGoogle as GoogleIcon } from 'react-icons/fc';
 import { NextPageContext } from 'next';
 import { SignUpForm, SignUpSchema } from '../utils/validationSchema';
@@ -61,9 +61,8 @@ const Signup = () => {
                     className="flex text-gray-500 bg-gray-300 p-2 my-2 rounded-lg justify-center"
                     onClick={async (e) => {
                         e.preventDefault();
-
                         await signIn('google', {
-                            callbackUrl: process.env.APP_URL + '/expense',
+                            callbackUrl: '/expense',
                         });
                     }}
                 >
