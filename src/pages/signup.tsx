@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FcGoogle as GoogleIcon } from 'react-icons/fc';
 import { NextPageContext } from 'next';
-import { SigninForm, SigninSchema } from '../utils/validationSchema';
+import { SignUpForm, SignUpSchema } from '../utils/validationSchema';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,7 +9,7 @@ import { getSession, signIn } from 'next-auth/react';
 import Toast from '../components/toast';
 import FormField from '../components/FormField';
 
-const Signin = () => {
+const Signup = () => {
     const router = useRouter();
     const [toast, setToast] = useState<{
         message: string;
@@ -20,20 +20,28 @@ const Signin = () => {
         handleSubmit,
         control,
         formState: { errors, isSubmitting },
-    } = useForm<SigninForm>({
-        resolver: zodResolver(SigninSchema),
+    } = useForm<SignUpForm>({
+        resolver: zodResolver(SignUpSchema),
         mode: 'onBlur',
     });
 
     return (
         <div className="flex flex-col items-center justify-center bg-gray-100 min-h-screen">
-            <h1 className="text-4xl font-bold pb-8">Sign In</h1>
+            <h1 className="text-4xl font-bold pb-8">Sign Up</h1>
             <form
                 className="flex flex-col w-full max-w-md"
                 onSubmit={handleSubmit((d) => {
-                    console.log({ email: d.email, password: d.password });
+                    console.log('hi');
+                    console.log(d);
                 })}
             >
+                <FormField
+                    name="name"
+                    placeholder="Name..."
+                    isInvalid={Boolean(errors.name?.message)}
+                    isSubmitting={isSubmitting}
+                    control={control}
+                />
                 <FormField
                     name="email"
                     placeholder="Email..."
@@ -53,18 +61,20 @@ const Signin = () => {
                     type="submit"
                     className="bg-green-600 text-white my-2 p-2 rounded-lg justify-right"
                 >
-                    Sign in
+                    Sign Up
                 </button>
                 <button
                     className="flex text-gray-500 bg-gray-300 p-2 my-2 rounded-lg justify-center"
-                    onClick={async () => {
+                    onClick={async (e) => {
+                        e.preventDefault();
+
                         await signIn('google', {
-                            callbackUrl: '/expense',
+                            callbackUrl: process.env.VERCEL_URL + '/expense',
                         });
                     }}
                 >
                     <GoogleIcon size="22px" className="mr-2" />
-                    <span>Sign in with Google</span>
+                    <span>Sign Up with Google</span>
                 </button>
                 <button
                     className="flex text-white bg-blue-500 p-2 my-2 rounded-lg justify-center"
@@ -106,4 +116,4 @@ export async function getServerSideProps(ctx: NextPageContext) {
     };
 }
 
-export default Signin;
+export default Signup;

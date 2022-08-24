@@ -15,7 +15,7 @@ export const SigninSchema = z.object({
 
 export type SigninForm = z.infer<typeof SigninSchema>;
 
-export const RegisterSchema = z.object({
+export const SignUpSchema = z.object({
     email: z
         .string({
             required_error: 'Email is required',
@@ -29,19 +29,16 @@ export const RegisterSchema = z.object({
         .max(50, 'Password cannot be more than 50 characters')
         .regex(/[a-z]/, 'Password must contain a lowercase character')
         .regex(/\d/, 'Password must contain a numeric character'),
-    confirmPassword: z.string({
-        required_error: 'Password confirmation is required',
-    }),
     name: z
         .string({
             required_error: 'Name is required',
         })
         .min(4, 'Name must at least 4 characters')
         .max(50, 'Name cannot be more than 50 characters'),
-    image: z.string().url('Image URL must be a valid URL'),
+    image: z.string().url('Image URL must be a valid URL').optional(),
 });
 
-export type RegsiterForm = z.infer<typeof RegisterSchema>;
+export type SignUpForm = z.infer<typeof SignUpSchema>;
 
 export const ExpenseFormSchema = z.object({
     name: z.string({ required_error: 'Name of expense must be specified' }),

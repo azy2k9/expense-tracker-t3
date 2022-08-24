@@ -1,5 +1,8 @@
 import NextAuth, { type NextAuthOptions } from 'next-auth';
-import DiscordProvider from 'next-auth/providers/discord';
+import GoogleProvider from 'next-auth/providers/google';
+import CredentialProvider from 'next-auth/providers/credentials';
+
+import bcrypt from 'bcryptjs';
 
 // Prisma adapter for NextAuth, optional and can be removed
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
@@ -18,12 +21,41 @@ export const authOptions: NextAuthOptions = {
     },
     // Configure one or more authentication providers
     adapter: PrismaAdapter(prisma),
+    pages: {
+        signIn: '/signin',
+    },
     providers: [
-        DiscordProvider({
-            clientId: env.DISCORD_CLIENT_ID,
-            clientSecret: env.DISCORD_CLIENT_SECRET,
+        CredentialProvider({
+            name: 'Credentials',
+            credentials: {
+                email: { type: 'text', label: 'Email' },
+                password: { type: 'password', label: 'Password' },
+            },
+            async authorize(credentials) {
+                const user = await prisma.user.findFirst({
+                    where: {
+                        email: credentials?.email,
+                    },
+                });
+
+                if (user && credentials?.password) {
+                    const isValid = bcrypt.compareSync(
+                        credentials.password,
+                        user.password
+                    );
+
+                    if (isValid) {
+                        return user;
+                    }
+                }
+
+                throw new Error('Invalid username or password');
+            },
         }),
-        // ...add more providers here
+        GoogleProvider({
+            clientId: env.GOOGLE_CLIENT_ID,
+            clientSecret: env.GOOGLE_CLIENT_SECRET,
+        }),
     ],
 };
 
