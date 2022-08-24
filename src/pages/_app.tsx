@@ -4,6 +4,7 @@ import { SessionProvider } from 'next-auth/react';
 import type { AppType } from 'next/dist/shared/lib/utils';
 import { trpc } from '../utils/trpc';
 import Head from 'next/head';
+import Header from '../components/Header';
 
 const MyApp: AppType = ({ Component, pageProps }) => {
     return (
@@ -22,6 +23,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
                 <meta charSet="utf-8" />
             </Head>
             <SessionProvider session={pageProps.session}>
+                <Header />
                 <Component {...pageProps} />
             </SessionProvider>
         </>
