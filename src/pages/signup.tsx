@@ -63,7 +63,7 @@ const Signup = () => {
                         e.preventDefault();
 
                         await signIn('google', {
-                            callbackUrl: process.env.VERCEL_URL + '/expense',
+                            callbackUrl: process.env.APP_URL + '/expense',
                         });
                     }}
                 >
