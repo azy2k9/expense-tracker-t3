@@ -15,11 +15,11 @@ const Home: NextPage = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Layout className="container flex flex-col items-center justify-center full-height mx-auto">
-                <div className="text-center text-2xl w-7/12 pb-4">
+                <div className="text-center text-xl sm:text-2xl w-7/12 pb-4">
                     Track expenses and income to get an accurate and visual
                     representation of your expenditure.
                 </div>
-                <div className="text-center text-2xl w-7/12 pb-24 sm:pb-12">
+                <div className="text-center text-xl sm:text-2xl w-7/12 pb-24 sm:pb-12">
                     By tracking income and expenses, calculations are performed
                     to inform you of your remaining money after your regular
                     expenses.
