@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { getSession, signIn } from 'next-auth/react';
 import FormField from '../components/FormField';
+import Layout from '../components/Layout';
 
 const Signin = () => {
     const router = useRouter();
@@ -20,7 +21,7 @@ const Signin = () => {
     });
 
     return (
-        <div className="flex flex-col items-center justify-center bg-gray-100 min-h-screen">
+        <Layout className="flex-col items-center justify-center">
             <h1 className="text-4xl font-bold pb-8">Sign In</h1>
             <form
                 className="flex flex-col w-full max-w-md"
@@ -71,7 +72,7 @@ const Signin = () => {
                     Sign Up
                 </button>
             </form>
-        </div>
+        </Layout>
     );
 };
 

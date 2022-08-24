@@ -23,7 +23,6 @@ const MyApp: AppType = ({ Component, pageProps }) => {
                 <meta charSet="utf-8" />
             </Head>
             <SessionProvider session={pageProps.session}>
-                <Header />
                 <Component {...pageProps} />
             </SessionProvider>
         </>

@@ -37,18 +37,17 @@ const FormField = ({
                         {...field}
                         placeholder={placeholder}
                         type={showPassword ? 'text' : 'password'}
-                        className=" rounded-lg p-4 w-full my-1 focus:border-green-600 focus:ring-green-600"
+                        className=" rounded-lg p-4 w-full my-1 text-indigo-500 border-2 border-indigo-400 focus:border-indigo-600 focus:ring-indigo-600"
                         aria-invalid={isInvalid ? 'true' : 'false'}
                         disabled={isSubmitting}
                     />
-                    <div
-                        onClick={handleShowPassword}
-                        className="absolute w-6 top-5 right-4"
-                    >
-                        {showPassword ? <EyeIcon /> : <EyeOffIcon />}
+                    <div className="absolute top-5 right-4 text-indigo-600">
+                        <button className="w-6" onClick={handleShowPassword}>
+                            {showPassword ? <EyeIcon /> : <EyeOffIcon />}
+                        </button>
                     </div>
                 </div>
-                <p className="text-red-600">{error?.message}</p>
+                <p className="text-red-300">{error?.message}</p>
             </div>
         );
     }
@@ -59,11 +58,11 @@ const FormField = ({
                 {...field}
                 placeholder={placeholder}
                 type={type}
-                className="rounded-lg p-4 w-full my-1 focus:border-green-600 focus:ring-green-600"
+                className="rounded-lg p-4 w-full my-1 text-indigo-500 border-2 border-indigo-400 focus:border-indigo-600 focus:ring-indigo-600"
                 aria-invalid={isInvalid ? 'true' : 'false'}
                 disabled={isSubmitting}
             />
-            <p className="text-red-600">{error?.message}</p>
+            <p className="text-red-300">{error?.message}</p>
         </div>
     );
 };
