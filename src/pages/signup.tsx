@@ -6,16 +6,10 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { getSession, signIn } from 'next-auth/react';
-import Toast from '../components/toast';
 import FormField from '../components/FormField';
 
 const Signup = () => {
     const router = useRouter();
-    const [toast, setToast] = useState<{
-        message: string;
-        status: 'success' | 'error';
-    } | null>();
-
     const {
         handleSubmit,
         control,
@@ -86,13 +80,6 @@ const Signup = () => {
                     Sign In
                 </button>
             </form>
-            {toast && (
-                <Toast
-                    message={toast.message}
-                    status={toast.status}
-                    onClose={() => setToast(null)}
-                />
-            )}
         </div>
     );
 };

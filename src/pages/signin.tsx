@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FcGoogle as GoogleIcon } from 'react-icons/fc';
 import { NextPageContext } from 'next';
 import { SigninForm, SigninSchema } from '../utils/validationSchema';
