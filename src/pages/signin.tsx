@@ -51,7 +51,8 @@ const Signin = () => {
                 </button>
                 <button
                     className="flex text-gray-500 bg-gray-300 p-2 my-2 rounded-lg justify-center"
-                    onClick={async () => {
+                    onClick={async (e) => {
+                        e.preventDefault();
                         await signIn('google', {
                             callbackUrl: '/expense',
                         });
@@ -64,10 +65,10 @@ const Signin = () => {
                     className="flex text-white bg-blue-500 p-2 my-2 rounded-lg justify-center"
                     onClick={(e) => {
                         e.preventDefault();
-                        router.push('/signin');
+                        router.push('/signup');
                     }}
                 >
-                    Sign In
+                    Sign Up
                 </button>
             </form>
         </div>
