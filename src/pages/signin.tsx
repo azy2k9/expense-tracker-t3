@@ -22,7 +22,9 @@ const Signin = () => {
 
     return (
         <Layout className="flex-col items-center justify-center">
-            <h1 className="text-4xl font-bold pb-8">Sign In</h1>
+            <h1 className="text-purple-300 text-2xl sm:text-[1.75rem] md:text-[2.5rem] font-bold text-center p-4">
+                Sign In
+            </h1>
             <form
                 className="flex flex-col w-full max-w-md"
                 onSubmit={handleSubmit((d) => {

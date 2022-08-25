@@ -8,7 +8,7 @@ const Header = () => {
     const { data: session } = useSession();
 
     return (
-        <div className="flex items-center">
+        <div className="text-white bg-indigo-500 flex items-center">
             <h1
                 className="text-4xl md:text-[4rem] font-extrabold flex-1 text-center py-4
                     h-[10vh]"
