@@ -37,11 +37,11 @@ const FormField = ({
                         {...field}
                         placeholder={placeholder}
                         type={showPassword ? 'text' : 'password'}
-                        className=" rounded-lg p-4 w-full my-1 text-indigo-500 border-2 border-indigo-400 focus:border-indigo-600 focus:ring-indigo-600"
+                        className=" rounded-lg p-4 w-full my-1 text-purple-400 border-2 border-purple-400 focus:border-purple-500 focus:ring-purple-500"
                         aria-invalid={isInvalid ? 'true' : 'false'}
                         disabled={isSubmitting}
                     />
-                    <div className="absolute top-5 right-4 text-indigo-600">
+                    <div className="absolute top-5 right-4 text-purple-400 hover:text-purple-500">
                         <button className="w-6" onClick={handleShowPassword}>
                             {showPassword ? <EyeIcon /> : <EyeOffIcon />}
                         </button>
@@ -58,7 +58,7 @@ const FormField = ({
                 {...field}
                 placeholder={placeholder}
                 type={type}
-                className="rounded-lg p-4 w-full my-1 text-indigo-500 border-2 border-indigo-400 focus:border-indigo-600 focus:ring-indigo-600"
+                className="rounded-lg p-4 w-full my-1 text-purple-400 border-2 border-purple-400 focus:border-purple-500 focus:ring-purple-500"
                 aria-invalid={isInvalid ? 'true' : 'false'}
                 disabled={isSubmitting}
             />
