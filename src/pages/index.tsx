@@ -28,20 +28,25 @@ const Home: NextPage = () => {
                     {user.data?.user ? (
                         <>
                             <Link href="/expenses">
-                                <button className="bg-purple-400 hover:bg-purple-500 text-lg sm:text-2xl text-white font-bold py-4 px-8 rounded-full mx-2">
+                                <button className="bg-purple-400 hover:bg-purple-500 text-lg sm:text-xl md:text-2xl text-white font-bold py-4 px-8 rounded-full mx-2">
                                     Expenses
+                                </button>
+                            </Link>
+                            <Link href="/create-expense">
+                                <button className="bg-purple-400 hover:bg-purple-500 text-lg sm:text-xl md:text-2xl text-white font-bold py-4 px-8 rounded-full mx-2">
+                                    Create Expense
                                 </button>
                             </Link>
                         </>
                     ) : (
                         <>
                             <Link href="/signin">
-                                <button className="bg-purple-400 hover:bg-purple-500 text-lg sm:text-2xl text-white font-bold py-4 px-8 rounded-full mx-2">
+                                <button className="bg-purple-400 hover:bg-purple-500 text-lg sm:text-xl md:text-2xl text-white font-bold py-4 px-8 rounded-full mx-2">
                                     Sign In
                                 </button>
                             </Link>
                             <Link href="/signup">
-                                <button className="bg-purple-400 hover:bg-purple-500 text-lg sm:text-2xl text-white font-bold py-4 px-8 rounded-full">
+                                <button className="bg-purple-400 hover:bg-purple-500 text-lg sm:text-xl md:text-2xl text-white font-bold py-4 px-8 rounded-full">
                                     Sign Up
                                 </button>
                             </Link>

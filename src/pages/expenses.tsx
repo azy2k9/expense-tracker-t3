@@ -6,7 +6,6 @@ const Expenses = () => {
     const expenses = trpc.proxy.expenses.fetchExpenses.useQuery();
     return (
         <Layout>
-            <h1>Expense tracker</h1>
             {expenses.data?.map((e) => (
                 <div key={e.id}>
                     <p>{e.name}</p>

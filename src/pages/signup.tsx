@@ -54,12 +54,12 @@ const Signup = () => {
                 />
                 <button
                     type="submit"
-                    className="bg-green-600 text-white my-2 p-2 rounded-lg justify-right"
+                    className="bg-purple-400 hover:bg-purple-500 text-white my-2 p-2 rounded-lg justify-right"
                 >
                     Sign Up
                 </button>
                 <button
-                    className="flex text-gray-500 bg-gray-300 p-2 my-2 rounded-lg justify-center"
+                    className="flex text-white bg-purple-400 hover:bg-purple-500 p-2 my-2 rounded-lg justify-center"
                     onClick={async (e) => {
                         e.preventDefault();
                         await signIn('google', {
@@ -71,7 +71,7 @@ const Signup = () => {
                     <span>Sign Up with Google</span>
                 </button>
                 <button
-                    className="flex text-white bg-blue-500 p-2 my-2 rounded-lg justify-center"
+                    className="bg-purple-400 hover:bg-purple-500 text-white my-2 p-2 rounded-lg justify-right"
                     onClick={(e) => {
                         e.preventDefault();
                         router.push('/signin');

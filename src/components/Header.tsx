@@ -10,7 +10,7 @@ const Header = () => {
     return (
         <div className="flex items-center">
             <h1
-                className="text-4xl md:text-[4rem] leading-normal font-extrabold flex-1 text-center py-4
+                className="text-4xl md:text-[4rem] font-extrabold flex-1 text-center py-4
                     h-[10vh]"
             >
                 <Link href={'/'}>
@@ -19,20 +19,22 @@ const Header = () => {
                     </span>
                 </Link>
             </h1>
-            <div>
+            <div className="flex flex-col pr-2">
                 {session && session.user?.image && (
-                    <Image
-                        alt={session.user.name || 'profile picture'}
-                        className="rounded-full"
-                        src={session.user?.image}
-                        height={50}
-                        width={50}
-                    />
+                    <div className="flex justify-center pb-1">
+                        <Image
+                            alt={session.user.name || 'profile picture'}
+                            className="rounded-full"
+                            src={session.user?.image}
+                            height={50}
+                            width={50}
+                        />
+                    </div>
                 )}
                 {session && session.user && (
                     <button
                         onClick={() => signOut()}
-                        className="bg-purple-400 hover:bg-purple-500 font-bold py-2 px-4 rounded-full"
+                        className="bg-purple-400 hover:bg-purple-500 text-xs font-bold py-2 px-4 rounded-full"
                     >
                         Sign Out
                     </button>
