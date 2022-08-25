@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import { useSession } from 'next-auth/react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '../components/Layout';
@@ -6,6 +7,7 @@ import Layout from '../components/Layout';
 
 const Home: NextPage = () => {
     // const hello = trpc.proxy.example.hello.useQuery({ text: 'from tRPC' });
+    const user = useSession();
 
     return (
         <>
@@ -25,16 +27,28 @@ const Home: NextPage = () => {
                     expenses.
                 </div>
                 <div className="flex">
-                    <Link href="/signin">
-                        <button className="bg-purple-400 hover:bg-purple-500 text-lg sm:text-2xl text-white font-bold py-4 px-8 rounded-full mx-2">
-                            Sign In
-                        </button>
-                    </Link>
-                    <Link href="/signup">
-                        <button className="bg-purple-400 hover:bg-purple-500 text-lg sm:text-2xl text-white font-bold py-4 px-8 rounded-full">
-                            Sign Up
-                        </button>
-                    </Link>
+                    {user.data?.user ? (
+                        <>
+                            <Link href="/expenses">
+                                <button className="bg-purple-400 hover:bg-purple-500 text-lg sm:text-2xl text-white font-bold py-4 px-8 rounded-full mx-2">
+                                    Expenses
+                                </button>
+                            </Link>
+                        </>
+                    ) : (
+                        <>
+                            <Link href="/signin">
+                                <button className="bg-purple-400 hover:bg-purple-500 text-lg sm:text-2xl text-white font-bold py-4 px-8 rounded-full mx-2">
+                                    Sign In
+                                </button>
+                            </Link>
+                            <Link href="/signup">
+                                <button className="bg-purple-400 hover:bg-purple-500 text-lg sm:text-2xl text-white font-bold py-4 px-8 rounded-full">
+                                    Sign Up
+                                </button>
+                            </Link>
+                        </>
+                    )}
                 </div>
                 {/* <div className="flex items-center justify-center w-full pt-6 text-2xl text-blue-500">
                     {hello.data ? (

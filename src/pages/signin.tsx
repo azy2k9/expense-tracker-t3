@@ -55,7 +55,7 @@ const Signin = () => {
                     onClick={async (e) => {
                         e.preventDefault();
                         await signIn('google', {
-                            callbackUrl: '/expense',
+                            callbackUrl: '/expenses',
                         });
                     }}
                 >
@@ -82,7 +82,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
     if (session?.user) {
         return {
             redirect: {
-                destination: '/expense',
+                destination: '/expenses',
                 permanent: false,
             },
         };
