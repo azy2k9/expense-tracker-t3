@@ -43,13 +43,17 @@ export type SignUpForm = z.infer<typeof SignUpSchema>;
 export const ExpenseFormSchema = z.object({
     name: z.string({ required_error: 'Name of expense must be specified' }),
     price: z
-        .number({ required_error: 'Price of expense must be specified' })
-        .gt(0, 'Price must be greated than 0')
-        .positive('Price must be positive number'),
-    type: z.string({ required_error: 'Type of expense must be specified' }),
-    date: z.date({
+        .string({ required_error: 'Price of expense must be specified' })
+        .regex(
+            /^\d{1,9}.?\d{0,2}$/,
+            'Price can only be numbers up to 2 decimal places'
+        ),
+
+    type: z.enum(['EXPENSE', 'INCOME'], {
+        required_error: 'Type of expense must be specified',
+    }),
+    date: z.string({
         required_error: 'Date for expense is must be specified',
-        invalid_type_error: 'Date must be valid',
     }),
 });
 

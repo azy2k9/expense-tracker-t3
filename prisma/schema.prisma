@@ -21,7 +21,7 @@ enum Type {
 model Expense {
     id         String   @id @default(cuid())
     name       String
-    price      Int
+    price      String
     type       Type
     date       DateTime
     created_by User     @relation(fields: [userId], references: [id])
