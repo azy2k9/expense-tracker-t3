@@ -16,6 +16,10 @@ const CreateExpense = () => {
     } = useForm<ExpenseForm>({
         resolver: zodResolver(ExpenseFormSchema),
         mode: 'onBlur',
+        defaultValues: {
+            // Must provide date in format YYYY-MM-DD
+            date: new Date().toISOString().split('T')[0],
+        },
     });
 
     const createExpense = trpc.proxy.expenses.createExpense.useMutation({
