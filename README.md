@@ -8,6 +8,6 @@ Track expenses and income to get an accurate and visual representation of your e
 -   [x] Fetch expenses
 -   [] Edit expenses
 -   [] Delete expenses
--   [] Calculate total expenses
+-   [x] Calculate total expenses
 -   [] Responsive
 -   [] Transitions
