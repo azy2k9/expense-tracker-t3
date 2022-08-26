@@ -21,7 +21,10 @@ const Signup = () => {
     });
 
     return (
-        <Layout className="flex-col items-center justify-center">
+        <Layout
+            className="flex-col items-center justify-center"
+            loading={isSubmitting}
+        >
             <h1 className="text-4xl font-bold pb-8">Sign Up</h1>
             <form
                 className="flex flex-col w-full max-w-md"

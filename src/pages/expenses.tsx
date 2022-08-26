@@ -8,7 +8,10 @@ const Expenses = () => {
     const stats = trpc.proxy.expenses.calculateStats.useQuery();
 
     return (
-        <Layout className="flex-col justify-start">
+        <Layout
+            className="flex-col justify-start"
+            loading={expenses.isLoading || stats.isLoading}
+        >
             <h1 className="text-purple-300 text-2xl sm:text-[1.75rem] md:text-[2.5rem] font-bold text-center p-4">
                 Expenses
             </h1>
