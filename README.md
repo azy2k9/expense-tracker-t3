@@ -6,8 +6,9 @@ Track expenses and income to get an accurate and visual representation of your e
 
 -   [x] Create expense
 -   [x] Fetch expenses
--   [] Edit expenses
+-   [x] Edit expenses
 -   [x] Delete expenses
 -   [x] Calculate total expenses
+-   [] Auth (Register, Signin) using credentials
 -   [] Responsive
 -   [] Transitions
