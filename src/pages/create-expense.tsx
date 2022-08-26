@@ -24,7 +24,7 @@ const CreateExpense = () => {
 
     const createExpense = trpc.proxy.expenses.createExpense.useMutation({
         onSuccess: () => {
-            router.push('/');
+            router.push('/expenses');
         },
     });
 
