@@ -4,7 +4,10 @@ Track expenses and income to get an accurate and visual representation of your e
 
 # Tasks
 
--   [ ] Create expense
--   [ ] Fetch expenses
--   [ ] Delete expenses
--   [ ] Calculate total expenses
+-   [x] Create expense
+-   [x] Fetch expenses
+-   [] Edit expenses
+-   [] Delete expenses
+-   [] Calculate total expenses
+-   [] Responsive
+-   [] Transitions
