@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Expense } from '@prisma/client';
 import { trpc } from '../utils/trpc';
+import Modal from './Modal';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { ExpenseForm, ExpenseFormSchema } from '../utils/validationSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import FormField from './FormField';
 
 const ExpenseCard = ({ expense }: { expense: Expense }) => {
     const queryClient = trpc.useContext();
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
     const deleteExpense = trpc.proxy.expenses.deleteExpense.useMutation({
         onSuccess() {
@@ -12,7 +18,42 @@ const ExpenseCard = ({ expense }: { expense: Expense }) => {
         },
     });
 
+    const editExpense = trpc.proxy.expenses.editExpense.useMutation({
+        onSuccess() {
+            queryClient.invalidateQueries(['expenses.fetchExpenses']);
+            queryClient.invalidateQueries(['expenses.calculateStats']);
+        },
+    });
+
     const handleDeleteExpense = () => deleteExpense.mutate({ id: expense.id });
+    const handleCloseModal = () => setIsModalVisible(false);
+    const handleShowModal = () => setIsModalVisible(true);
+
+    const {
+        handleSubmit,
+        control,
+        formState: { isSubmitting },
+    } = useForm<ExpenseForm>({
+        resolver: zodResolver(ExpenseFormSchema),
+        mode: 'onBlur',
+        defaultValues: {
+            name: expense.name,
+            price: expense.price,
+            type: expense.type,
+            date: expense.date.toISOString().split('T')[0],
+        },
+    });
+
+    const onSubmit: SubmitHandler<ExpenseForm> = (data) => {
+        editExpense.mutate({
+            id: expense.id,
+            name: data.name,
+            price: data.price,
+            type: data.type,
+            date: data.date,
+        });
+        handleCloseModal();
+    };
 
     return (
         <div className="flex items-center">
@@ -33,11 +74,59 @@ const ExpenseCard = ({ expense }: { expense: Expense }) => {
                 </button>
                 <button
                     className="bg-purple-400 hover:bg-purple-500 text-sm font-bold py-2 px-4 rounded-full mt-2"
-                    onClick={handleDeleteExpense}
+                    onClick={handleShowModal}
                 >
                     Edit
                 </button>
             </div>
+            <Modal
+                title="Edit Expenses"
+                open={isModalVisible}
+                onClose={handleCloseModal}
+                primaryBtnText="Edit Expense"
+                onPrimaryClick={handleSubmit(onSubmit)}
+            >
+                <form className="flex flex-col w-full">
+                    <FormField
+                        name="name"
+                        placeholder="Name..."
+                        isSubmitting={isSubmitting}
+                        control={control}
+                    />
+                    <FormField
+                        name="price"
+                        placeholder="Price..."
+                        isSubmitting={isSubmitting}
+                        control={control}
+                        leftAdornment="£"
+                    />
+                    <div className="flex justify-center py-8">
+                        <FormField
+                            name="type"
+                            placeholder="Expense"
+                            isSubmitting={isSubmitting}
+                            control={control}
+                            type="radio"
+                            value="EXPENSE"
+                        />
+                        <FormField
+                            name="type"
+                            placeholder="Income"
+                            isSubmitting={isSubmitting}
+                            control={control}
+                            type="radio"
+                            value="INCOME"
+                        />
+                    </div>
+                    <FormField
+                        name="date"
+                        placeholder="Date..."
+                        isSubmitting={isSubmitting}
+                        control={control}
+                        type="date"
+                    />
+                </form>
+            </Modal>
         </div>
     );
 };

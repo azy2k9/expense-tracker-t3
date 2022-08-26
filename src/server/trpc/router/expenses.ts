@@ -56,19 +56,15 @@ export const expensesRouter = t.router({
         }),
 
     editExpense: authedProcedure
-        .input(
-            z.object({
-                id: z.string(),
-                price: z.string(),
-            })
-        )
+        .input(ExpenseFormSchema.merge(z.object({ id: z.string() })))
         .mutation(async ({ ctx, input }) => {
             const updatedExpense = ctx.prisma.expense.update({
                 where: {
                     id: input.id,
                 },
                 data: {
-                    price: input.price,
+                    ...input,
+                    date: new Date(input.date),
                 },
             });
 
