@@ -35,6 +35,10 @@ export const expensesRouter = t.router({
             where: {
                 userId: ctx.session.user.id,
             },
+            orderBy: {
+                // Income first
+                type: 'desc',
+            },
         });
 
         return expenses;
