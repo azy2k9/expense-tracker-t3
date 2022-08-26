@@ -14,8 +14,13 @@ const Layout: React.FC<LayoutProps> = ({
     return (
         <>
             {loading && <LoadingOverlay />}
-            <main className="bg-indigo-500 text-white">
-                <div className={'flex full-height w-full px-4 ' + className}>
+            <main className="md:flex bg-indigo-500 text-white md:justify-center">
+                <div
+                    className={
+                        'flex full-height w-full md:max-w-screen-md px-4 ' +
+                        className
+                    }
+                >
                     {children}
                 </div>
             </main>

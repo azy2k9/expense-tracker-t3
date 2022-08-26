@@ -24,12 +24,18 @@ const ExpenseCard = ({ expense }: { expense: Expense }) => {
                 <span>{expense.name}</span>
                 <span>£{expense.price}</span>
             </div>
-            <div>
+            <div className="flex flex-col">
                 <button
                     className="bg-purple-400 hover:bg-purple-500 text-sm font-bold py-2 px-4 rounded-full"
                     onClick={handleDeleteExpense}
                 >
                     Delete
+                </button>
+                <button
+                    className="bg-purple-400 hover:bg-purple-500 text-sm font-bold py-2 px-4 rounded-full mt-2"
+                    onClick={handleDeleteExpense}
+                >
+                    Edit
                 </button>
             </div>
         </div>
