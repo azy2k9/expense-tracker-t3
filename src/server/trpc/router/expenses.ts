@@ -1,5 +1,6 @@
 import { authedProcedure, t } from '../utils';
 import { ExpenseFormSchema } from '../../../utils/validationSchema';
+import z from 'zod';
 
 export const expensesRouter = t.router({
     calculateStats: authedProcedure.query(async ({ ctx }) => {
@@ -52,5 +53,24 @@ export const expensesRouter = t.router({
             });
 
             return createdExpense;
+        }),
+    deleteExpense: authedProcedure
+        .input(
+            z.object({
+                id: z.string(),
+            })
+        )
+        .mutation(async ({ ctx, input }) => {
+            const expense = await ctx.prisma.expense.delete({
+                where: {
+                    id: input.id,
+                },
+            });
+
+            if (expense.id === input.id) {
+                return expense;
+            }
+
+            throw new Error('Failed to delete expense');
         }),
 });
