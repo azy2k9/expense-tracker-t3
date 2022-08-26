@@ -36,21 +36,18 @@ const Signup = () => {
                 <FormField
                     name="name"
                     placeholder="Name..."
-                    isInvalid={Boolean(errors.name?.message)}
                     isSubmitting={isSubmitting}
                     control={control}
                 />
                 <FormField
                     name="email"
                     placeholder="Email..."
-                    isInvalid={Boolean(errors.email?.message)}
                     isSubmitting={isSubmitting}
                     control={control}
                 />
                 <FormField
                     name="password"
                     placeholder="Password..."
-                    isInvalid={Boolean(errors.password?.message)}
                     isSubmitting={isSubmitting}
                     type="password"
                     control={control}

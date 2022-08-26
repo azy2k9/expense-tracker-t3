@@ -49,14 +49,12 @@ const CreateExpense = () => {
                 <FormField
                     name="name"
                     placeholder="Name..."
-                    isInvalid={Boolean(errors.name?.message)}
                     isSubmitting={isSubmitting}
                     control={control}
                 />
                 <FormField
                     name="price"
                     placeholder="Price..."
-                    isInvalid={Boolean(errors.price?.message)}
                     isSubmitting={isSubmitting}
                     control={control}
                     leftAdornment="£"
@@ -65,7 +63,6 @@ const CreateExpense = () => {
                     <FormField
                         name="type"
                         placeholder="Expense"
-                        isInvalid={Boolean(errors.type?.message)}
                         isSubmitting={isSubmitting}
                         control={control}
                         type="radio"
@@ -74,7 +71,6 @@ const CreateExpense = () => {
                     <FormField
                         name="type"
                         placeholder="Income"
-                        isInvalid={Boolean(errors.type?.message)}
                         isSubmitting={isSubmitting}
                         control={control}
                         type="radio"
@@ -84,7 +80,6 @@ const CreateExpense = () => {
                 <FormField
                     name="date"
                     placeholder="Date..."
-                    isInvalid={Boolean(errors.date?.message)}
                     isSubmitting={isSubmitting}
                     control={control}
                     type="date"

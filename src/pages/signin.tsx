@@ -37,14 +37,12 @@ const Signin = () => {
                 <FormField
                     name="email"
                     placeholder="Email..."
-                    isInvalid={Boolean(errors.email?.message)}
                     isSubmitting={isSubmitting}
                     control={control}
                 />
                 <FormField
                     name="password"
                     placeholder="Password..."
-                    isInvalid={Boolean(errors.password?.message)}
                     isSubmitting={isSubmitting}
                     type="password"
                     control={control}
