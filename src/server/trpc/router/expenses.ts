@@ -25,9 +25,9 @@ export const expensesRouter = t.router({
         const balance = expenseStats.income - expenseStats.expense;
 
         return {
-            totalExpenses: expenseStats.expense,
-            totalIncome: expenseStats.income,
-            balance,
+            totalExpenses: expenseStats.expense.toFixed(2),
+            totalIncome: expenseStats.income.toFixed(2),
+            balance: balance.toFixed(2),
         };
     }),
     fetchExpenses: authedProcedure.query(async ({ ctx }) => {
@@ -53,6 +53,26 @@ export const expensesRouter = t.router({
             });
 
             return createdExpense;
+        }),
+
+    editExpense: authedProcedure
+        .input(
+            z.object({
+                id: z.string(),
+                price: z.string(),
+            })
+        )
+        .mutation(async ({ ctx, input }) => {
+            const updatedExpense = ctx.prisma.expense.update({
+                where: {
+                    id: input.id,
+                },
+                data: {
+                    price: input.price,
+                },
+            });
+
+            return updatedExpense;
         }),
     deleteExpense: authedProcedure
         .input(
