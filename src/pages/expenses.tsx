@@ -1,9 +1,20 @@
-import React from 'react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import React, { useEffect } from 'react';
 import ExpenseCard from '../components/ExpenseCard';
 import Layout from '../components/Layout';
 import { trpc } from '../utils/trpc';
 
 const Expenses = () => {
+    const { data } = useSession();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!data || (data && !data.user)) {
+            router.push('/signin');
+        }
+    }, [data, data?.user, router]);
+
     const expenses = trpc.proxy.expenses.fetchExpenses.useQuery();
     const stats = trpc.proxy.expenses.calculateStats.useQuery();
 
