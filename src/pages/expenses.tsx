@@ -1,4 +1,5 @@
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
 import ExpenseCard from '../components/ExpenseCard';
@@ -39,6 +40,13 @@ const Expenses = () => {
                     <h3>Total Income</h3>
                     <h3>£{stats.data?.totalIncome}</h3>
                 </div>
+            </div>
+            <div className="flex justify-center">
+                <Link href="/create-expense">
+                    <button className="bg-purple-400 hover:bg-purple-500 text-xs font-bold py-2 px-4 rounded-full">
+                        Create an expense
+                    </button>
+                </Link>
             </div>
             <div>
                 {expenses.data?.map((e) => (
