@@ -45,11 +45,12 @@ const Home: NextPage = () => {
                                     Sign In
                                 </button>
                             </Link>
-                            <Link href="/signup">
+                            {/* Disable the sign up functionality for now */}
+                            {/* <Link href="/signup">
                                 <button className="bg-purple-400 hover:bg-purple-500 text-lg sm:text-xl md:text-2xl text-white font-bold py-4 px-8 rounded-full">
                                     Sign Up
                                 </button>
-                            </Link>
+                            </Link> */}
                         </>
                     )}
                 </div>

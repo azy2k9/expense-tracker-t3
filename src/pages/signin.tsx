@@ -65,7 +65,8 @@ const Signin = () => {
                     <GoogleIcon size="22px" className="mr-2" />
                     <span>Sign in with Google</span>
                 </button>
-                <button
+                {/* Disable the sign up functionality for now */}
+                {/* <button
                     className="flex text-white bg-purple-400 hover:bg-purple-500 p-2 my-2 rounded-lg justify-center"
                     onClick={(e) => {
                         e.preventDefault();
@@ -73,7 +74,7 @@ const Signin = () => {
                     }}
                 >
                     Sign Up
-                </button>
+                </button> */}
             </form>
         </Layout>
     );
