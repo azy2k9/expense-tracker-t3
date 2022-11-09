@@ -16,4 +16,11 @@ describe('Home page', () => {
         );
         expect(homepageText).toBeInTheDocument();
     });
+
+    it('has a sign in button', () => {
+        render(<Homepage />);
+        const signInButton = screen.getByRole('button');
+        console.log(signInButton);
+        expect(signInButton).toHaveTextContent(/sign in/i);
+    });
 });
