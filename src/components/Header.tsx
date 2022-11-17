@@ -8,13 +8,13 @@ const Header = ({ noTitle = false }: { noTitle?: boolean }) => {
     const { data: session } = useSession();
 
     return (
-        <div className="text-white bg-indigo-500 flex items-center">
+        <div className="text-white flex items-center">
             <h1 className="text-4xl md:text-[4rem] font-extrabold flex-1 text-center pt-10 md:pt-16 min-h-[10vh] md:max-h-[10vh]">
                 {!noTitle && (
                     <Link href={'/'}>
                         <span className="hover:cursor-pointer">
                             Expense{' '}
-                            <span className="text-purple-300">Tracker</span>
+                            <span className="text-green-300">Tracker</span>
                         </span>
                     </Link>
                 )}
