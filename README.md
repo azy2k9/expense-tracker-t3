@@ -2,6 +2,8 @@
 
 Track expenses and income to get an accurate and visual representation of your expenditure. By tracking income and expenses, calculations are performed to inform you of your remaining money after your regular expenses.
 
+### NOTE: I know the UI is pretty crappy for this project, it's not a focus for the MVP. I just need something functional so that I can focus on the backend
+
 # Tasks
 
 -   [x] Create expense
