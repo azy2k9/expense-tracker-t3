@@ -15,43 +15,43 @@ const Home: NextPage = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Layout className="container flex flex-col items-center justify-center full-height mx-auto">
-                <div className="text-center text-xl sm:text-2xl w-7/12 pb-4">
+                <div className="text-4xl md:text-5xl font-bold text-center pb-[2rem]">
+                    <span>
+                        Manage your finances with{' '}
+                        <span className="text-purple-300">Expense Tracker</span>
+                    </span>
+                </div>
+                <div className="text-center text-xl sm:text-3xl md:text-2xl w-8/12 sm:w-7/12 font-light">
                     Track expenses and income to get an accurate and visual
                     representation of your expenditure.
                 </div>
-                <div className="text-center text-xl sm:text-2xl w-7/12 pb-24 sm:pb-12">
-                    By tracking income and expenses, calculations are performed
-                    to inform you of your remaining money after your regular
-                    expenses.
-                </div>
-                <div className="flex">
+                <div className="flex pt-16">
                     {user?.data?.user ? (
                         <>
                             <Link href="/expenses">
-                                <button className="bg-purple-400 hover:bg-purple-500 text-lg sm:text-xl md:text-2xl text-white font-bold py-4 px-8 rounded-full mx-2">
+                                <button className="bg-purple-400 hover:bg-purple-500 text-lg sm:text-xl text-white font-bold py-3 px-8 rounded-full mx-2">
                                     Expenses
                                 </button>
                             </Link>
                             <Link href="/create-expense">
-                                <button className="bg-purple-400 hover:bg-purple-500 text-lg sm:text-xl md:text-2xl text-white font-bold py-4 px-8 rounded-full mx-2">
+                                <button className="bg-purple-400 hover:bg-purple-500 text-lg sm:text-xl text-white font-bold py-3 px-8 rounded-full mx-2">
                                     Create Expense
                                 </button>
                             </Link>
                         </>
                     ) : (
-                        <>
+                        <div className="flex flex-col items-center">
                             <Link href="/signin">
-                                <button className="bg-purple-400 hover:bg-purple-500 text-lg sm:text-xl md:text-2xl text-white font-bold py-4 px-8 rounded-full mx-2">
-                                    Sign In
+                                <button className="bg-purple-400 hover:bg-purple-500 text-md font-bold sm:text-xl text-white py-3 px-8 rounded-full mx-2">
+                                    Get Started
                                 </button>
                             </Link>
-                            {/* Disable the sign up functionality for now */}
-                            {/* <Link href="/signup">
-                                <button className="bg-purple-400 hover:bg-purple-500 text-lg sm:text-xl md:text-2xl text-white font-bold py-4 px-8 rounded-full">
-                                    Sign Up
-                                </button>
-                            </Link> */}
-                        </>
+                            <Link href="/learn-more">
+                                <span className="text-blue-400 pt-4 sm:text-lg">
+                                    Learn more
+                                </span>
+                            </Link>
+                        </div>
                     )}
                 </div>
             </Layout>

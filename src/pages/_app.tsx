@@ -5,8 +5,12 @@ import type { AppType } from 'next/dist/shared/lib/utils';
 import { trpc } from '../utils/trpc';
 import Head from 'next/head';
 import Header from '../components/Header';
+import { useRouter } from 'next/router';
 
 const MyApp: AppType = ({ Component, pageProps }) => {
+    const router = useRouter();
+    const isHomepage = router.pathname === '/';
+
     return (
         <>
             <Head>
@@ -23,7 +27,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
                 <meta charSet="utf-8" />
             </Head>
             <SessionProvider session={pageProps.session}>
-                <Header />
+                <Header noTitle={isHomepage} />
                 <Component {...pageProps} />
             </SessionProvider>
         </>
