@@ -17,7 +17,12 @@ const Home: NextPage = () => {
             <Layout className="container flex flex-col items-center justify-center full-height mx-auto">
                 <div className="flex flex-col text-4xl md:text-5xl font-bold text-center pb-[2rem]">
                     <span>Manage your finances with </span>
-                    <span className="text-green-500">Expense Tracker</span>
+                    <span className="text-green-500">
+                        <span className="text-black dark:text-white">
+                            Expense{' '}
+                        </span>
+                        Tracker
+                    </span>
                 </div>
                 <div className="text-center text-xl sm:text-3xl md:text-2xl w-8/12 sm:w-7/12 font-light">
                     Track expenses and income to get an accurate and visual
@@ -27,20 +32,15 @@ const Home: NextPage = () => {
                     {user?.data?.user ? (
                         <>
                             <Link href="/expenses">
-                                <button className="bg-green-500 hover:bg-green-600 text-lg sm:text-xl text-white font-bold py-3 px-8 rounded-full mx-2">
-                                    Expenses
-                                </button>
-                            </Link>
-                            <Link href="/create-expense">
-                                <button className="bg-green-500 hover:bg-green-600 text-lg sm:text-xl text-white font-bold py-3 px-8 rounded-full mx-2">
-                                    Create Expense
+                                <button className="btn btn-primary">
+                                    My Expenses
                                 </button>
                             </Link>
                         </>
                     ) : (
                         <div className="flex flex-col items-center">
                             <Link href="/signin">
-                                <button className="bg-green-500 hover:bg-green-600 text-md sm:text-xl text-white py-3 px-8 rounded-full mx-2">
+                                <button className="btn btn-primary">
                                     Get Started
                                 </button>
                             </Link>

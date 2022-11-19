@@ -25,7 +25,7 @@ const Signin = () => {
             className="flex-col items-center justify-center"
             loading={isSubmitting}
         >
-            <h1 className="text-purple-300 text-2xl sm:text-[1.75rem] md:text-[2.5rem] font-bold text-center p-4">
+            <h1 className="text-green-300 text-2xl sm:text-[1.75rem] md:text-[2.5rem] font-bold text-center p-4">
                 Sign In
             </h1>
             <form
@@ -49,12 +49,12 @@ const Signin = () => {
                 />
                 <button
                     type="submit"
-                    className="bg-purple-400 hover:bg-purple-500 text-white my-2 p-2 rounded-lg justify-right"
+                    className="btn btn-primary  my-2 p-2 rounded-lg justify-right"
                 >
                     Sign in
                 </button>
                 <button
-                    className="flex text-white bg-purple-400 hover:bg-purple-500 p-2 my-2 rounded-lg justify-center"
+                    className="btn btn-primary flex p-2 my-2 rounded-lg justify-center"
                     onClick={async (e) => {
                         e.preventDefault();
                         await signIn('google', {
@@ -67,7 +67,7 @@ const Signin = () => {
                 </button>
                 {/* Disable the sign up functionality for now */}
                 {/* <button
-                    className="flex text-white bg-purple-400 hover:bg-purple-500 p-2 my-2 rounded-lg justify-center"
+                    className="flex text-white bg-green-400 hover:bg-green-500 p-2 my-2 rounded-lg justify-center"
                     onClick={(e) => {
                         e.preventDefault();
                         router.push('/signup');

@@ -39,7 +39,7 @@ const CreateExpense = () => {
             className="flex-col justify-center items-center"
             loading={createExpense.isLoading}
         >
-            <h1 className="text-purple-300 text-2xl sm:text-[1.75rem] md:text-[2.5rem] font-bold text-center p-4">
+            <h1 className="text-green-300 text-2xl sm:text-[1.75rem] md:text-[2.5rem] font-bold text-center p-4">
                 Create Expense
             </h1>
             <form
@@ -84,10 +84,7 @@ const CreateExpense = () => {
                     control={control}
                     type="date"
                 />
-                <button
-                    type="submit"
-                    className="bg-purple-400 hover:bg-purple-500 text-lg text-white py-2 my-2 rounded-full"
-                >
+                <button type="submit" className="btn btn-primary">
                     Submit
                 </button>
             </form>

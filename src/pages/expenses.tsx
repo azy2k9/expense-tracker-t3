@@ -24,10 +24,7 @@ const Expenses = () => {
             className="flex-col justify-start"
             loading={expenses.isLoading || stats.isLoading}
         >
-            <h1 className="text-purple-300 text-2xl sm:text-[1.75rem] md:text-[2.5rem] font-bold text-center p-4">
-                Expenses
-            </h1>
-            <div className="flex my-4 py-4 font-bold bg-white rounded-md shadow-2xl text-black justify-around">
+            <div className="flex my-4 py-4 font-bold bg-white rounded-md shadow-2xl text-black justify-around dark:bg-slate-800">
                 <div className="flex flex-col items-center text-red-500">
                     <h3>Total Expenses</h3>
                     <h3>£{stats.data?.totalExpenses}</h3>
@@ -43,7 +40,7 @@ const Expenses = () => {
             </div>
             <div className="flex justify-center">
                 <Link href="/create-expense">
-                    <button className="bg-purple-400 hover:bg-purple-500 text-xs font-bold py-2 px-4 rounded-full">
+                    <button className="btn btn-primary btn-md">
                         Create an expense
                     </button>
                 </Link>

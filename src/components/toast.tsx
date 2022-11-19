@@ -53,7 +53,7 @@ const Toast = ({ message, status, onClose }: ToastProps) => {
                         data-mdb-dismiss="toast"
                         aria-label="Close"
                         onClick={onClose}
-                    ></button>
+                    />
                 </div>
             </div>
             <div className={color + ' p-3 rounded-b-lg break-words text-white'}>

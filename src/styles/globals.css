@@ -8,6 +8,38 @@
     }
 }
 
+@layer components {
+    .btn {
+        @apply sm:text-xl text-white py-3 px-8 rounded-full mx-2 dark:text-white;
+    }
+
+    .btn-primary {
+        @apply bg-green-500 hover:bg-green-600 dark:bg-green-600;
+    }
+
+    .btn-xs {
+        @apply text-xs py-1 px-3;
+    }
+    
+    .btn-md {
+        @apply text-base py-2 px-4;
+    }
+
+    .btn-info {
+        @apply bg-blue-500 hover:bg-blue-600 dark:bg-blue-600;
+    }
+
+    .btn-danger {
+        @apply bg-red-500 hover:bg-red-600 dark:bg-red-600;
+    }
+}
+
+/* @layer components {
+    .btn {
+        @apply bg-green-500 hover:bg-green-600 text-md sm:text-xl text-white py-3 px-8 rounded-full mx-2 dark:text-white dark:bg-green-600 dark:hover:bg-green-700;
+    }
+} */
+
 .loader {
     border-top-color: #3498db;
     -webkit-animation: spinner 1.5s linear infinite;
