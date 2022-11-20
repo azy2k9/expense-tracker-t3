@@ -5,9 +5,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 
-const light =
+const lightModeToggleStyles =
     'text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800';
-const dark =
+const darkModeToggleStyles =
     'text-green-700 border border-green-700 hover:bg-green-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-green-500 dark:text-green-500 dark:hover:text-green-700 dark:focus:ring-green-800';
 
 const Header = ({ noTitle = false }: { noTitle?: boolean }) => {
@@ -16,7 +16,7 @@ const Header = ({ noTitle = false }: { noTitle?: boolean }) => {
 
     return (
         <div className="flex items-center">
-            <h1 className="text-4xl md:text-[4rem] font-extrabold flex-1 text-center pt-10 md:pt-16 min-h-[10vh] md:max-h-[10vh]">
+            <h1 className="text-4xl md:text-[4rem] font-extrabold flex-1 text-center mt-8 md:mt-12 min-h-[10vh] md:max-h-[10vh]">
                 {!noTitle && (
                     <Link href={'/'}>
                         <span className="hover:cursor-pointer">
@@ -27,7 +27,11 @@ const Header = ({ noTitle = false }: { noTitle?: boolean }) => {
                 )}
             </h1>
             <button
-                className={theme === 'light' ? light : dark}
+                className={
+                    theme === 'light'
+                        ? lightModeToggleStyles
+                        : darkModeToggleStyles
+                }
                 onClick={() => {
                     setTheme(theme === 'light' ? 'dark' : 'light');
                 }}
