@@ -3,8 +3,7 @@ import { getSession, signOut, useSession } from 'next-auth/react';
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import nightwind from 'nightwind/helper';
-import useColorMode from '../hooks/useColorMode';
+import { useTheme } from 'next-themes';
 
 const light =
     'text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800';
@@ -13,7 +12,7 @@ const dark =
 
 const Header = ({ noTitle = false }: { noTitle?: boolean }) => {
     const { data: session } = useSession();
-    const [theme, setTheme] = useColorMode();
+    const { theme, setTheme } = useTheme();
 
     return (
         <div className="flex items-center">
@@ -30,7 +29,6 @@ const Header = ({ noTitle = false }: { noTitle?: boolean }) => {
             <button
                 className={theme === 'light' ? light : dark}
                 onClick={() => {
-                    nightwind.toggle();
                     setTheme(theme === 'light' ? 'dark' : 'light');
                 }}
             >

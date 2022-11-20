@@ -1,5 +1,4 @@
 import { Html, Head, Main, NextScript } from 'next/document';
-import nightwind from 'nightwind/helper';
 
 export default function Document() {
     return (
@@ -13,9 +12,6 @@ export default function Document() {
                     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;500;700&display=swap"
                     rel="stylesheet"
                 /> */}
-                <script
-                    dangerouslySetInnerHTML={{ __html: nightwind.init() }}
-                />
             </Head>
             <body className="dark:bg-slate-700 dark:text-white">
                 <Main />
