@@ -67,13 +67,13 @@ const ExpenseCard = ({ expense }: { expense: Expense }) => {
             </div>
             <div className="flex flex-col">
                 <button
-                    className="bg-purple-400 hover:bg-purple-500 text-sm font-bold py-2 px-4 rounded-full"
+                    className="btn btn-md btn-danger mb-1"
                     onClick={handleDeleteExpense}
                 >
                     Delete
                 </button>
                 <button
-                    className="bg-purple-400 hover:bg-purple-500 text-sm font-bold py-2 px-4 rounded-full mt-2"
+                    className="btn btn-md btn-info"
                     onClick={handleShowModal}
                 >
                     Edit
