@@ -15,8 +15,8 @@ const Header = ({ noTitle = false }: { noTitle?: boolean }) => {
     const { theme, setTheme } = useTheme();
 
     return (
-        <div className="flex items-center">
-            <h1 className="text-4xl md:text-[4rem] font-extrabold flex-1 text-center mt-8 md:mt-12 min-h-[10vh] md:max-h-[10vh]">
+        <div className="flex items-center min-h-[10vh] md:max-h-[10vh]">
+            <h1 className="text-4xl md:text-[4rem] font-extrabold flex-1 pt-8 md:pt-12 text-center">
                 {!noTitle && (
                     <Link href={'/'}>
                         <span className="hover:cursor-pointer">
