@@ -6,6 +6,7 @@ import { trpc } from '../utils/trpc';
 import Head from 'next/head';
 import Header from '../components/Header';
 import { useRouter } from 'next/router';
+import { ThemeProvider } from 'next-themes';
 
 const MyApp: AppType = ({ Component, pageProps }) => {
     const router = useRouter();
@@ -26,10 +27,12 @@ const MyApp: AppType = ({ Component, pageProps }) => {
                 />
                 <meta charSet="utf-8" />
             </Head>
-            <SessionProvider session={pageProps.session}>
-                <Header noTitle={isHomepage} />
-                <Component {...pageProps} />
-            </SessionProvider>
+            <ThemeProvider>
+                <SessionProvider session={pageProps.session}>
+                    <Header noTitle={isHomepage} />
+                    <Component {...pageProps} />
+                </SessionProvider>
+            </ThemeProvider>
         </>
     );
 };

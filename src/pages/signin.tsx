@@ -25,7 +25,7 @@ const Signin = () => {
             className="flex-col items-center justify-center"
             loading={isSubmitting}
         >
-            <h1 className="text-green-300 text-2xl sm:text-[1.75rem] md:text-[2.5rem] font-bold text-center p-4">
+            <h1 className="text-green-500 text-2xl sm:text-[1.75rem] md:text-[2.5rem] font-bold text-center p-4">
                 Sign In
             </h1>
             <form
@@ -49,7 +49,7 @@ const Signin = () => {
                 />
                 <button
                     type="submit"
-                    className="btn btn-primary  my-2 p-2 rounded-lg justify-right"
+                    className="btn btn-primary my-2 p-2 rounded-lg justify-right"
                 >
                     Sign in
                 </button>
