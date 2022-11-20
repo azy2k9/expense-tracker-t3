@@ -6,25 +6,22 @@ import Link from 'next/link';
 import { useTheme } from 'next-themes';
 
 const lightModeToggleStyles =
-    'text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800';
+    'text-white border-2 border-green-600 bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-600';
 const darkModeToggleStyles =
-    'text-green-700 border border-green-700 hover:bg-green-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-green-500 dark:text-green-500 dark:hover:text-green-700 dark:focus:ring-green-800';
+    'text-green-500 border-2 border-green-500 hover:bg-green-600/50 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-green-500 dark:text-green-500 dark:hover:text-green-500 dark:focus:ring-green-600';
 
-const Header = ({ noTitle = false }: { noTitle?: boolean }) => {
+const Header = () => {
     const { data: session } = useSession();
     const { theme, setTheme } = useTheme();
 
     return (
-        <div className="flex items-center min-h-[10vh] md:max-h-[10vh]">
-            <h1 className="text-4xl md:text-[4rem] font-extrabold flex-1 pt-8 md:pt-12 text-center">
-                {!noTitle && (
-                    <Link href={'/'}>
-                        <span className="hover:cursor-pointer">
-                            Expense{' '}
-                            <span className="text-green-500">Tracker</span>
-                        </span>
-                    </Link>
-                )}
+        <div className="flex items-center min-h-[15vh] md:max-h-[15vh]">
+            <h1 className="text-4xl md:text-5xl font-extrabold flex-1 text-center">
+                <Link href={'/'}>
+                    <span className="hover:cursor-pointer">
+                        Expense <span className="text-green-500">Tracker</span>
+                    </span>
+                </Link>
             </h1>
             <button
                 className={
