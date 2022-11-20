@@ -1,21 +1,25 @@
 import { NextPageContext } from 'next';
 import { getSession, signOut, useSession } from 'next-auth/react';
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
+import IconClosed from '../icons/IconClosed';
+import IconHamburgerMenu from '../icons/IconHamburgerMenu';
+import IconMoon from '../icons/IconMoon';
+import IconSun from '../icons/IconSun';
 
 const lightModeToggleStyles =
-    'text-white border-2 border-green-600 bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-600';
+    'text-white border-2 border-green-600 bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-500 dark:focus:ring-green-600';
 const darkModeToggleStyles =
-    'text-green-500 border-2 border-green-500 hover:bg-green-600/50 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:border-green-500 dark:text-green-500 dark:hover:text-green-500 dark:focus:ring-green-600';
+    'text-green-500 border-2 border-green-500 hover:bg-green-600/50 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center dark:border-green-500 dark:text-green-500 dark:hover:text-green-500 dark:focus:ring-green-600';
 
 const Header = () => {
     const { data: session } = useSession();
-    const { theme, setTheme } = useTheme();
+    const [isOpen, setIsOpen] = useState(false);
 
     return (
-        <div className="flex items-center min-h-[15vh] md:max-h-[15vh]">
+        <div className="flex items-center min-h-[15vh] md:max-h-[15vh] pr-2">
             <h1 className="text-4xl md:text-5xl font-extrabold flex-1 text-center">
                 <Link href={'/'}>
                     <span className="hover:cursor-pointer">
@@ -23,48 +27,10 @@ const Header = () => {
                     </span>
                 </Link>
             </h1>
-            <button
-                className={
-                    theme === 'light'
-                        ? lightModeToggleStyles
-                        : darkModeToggleStyles
-                }
-                onClick={() => {
-                    setTheme(theme === 'light' ? 'dark' : 'light');
-                }}
-            >
-                {theme === 'light' ? (
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
-                        />
-                    </svg>
-                ) : (
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-6 h-6"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
-                        />
-                    </svg>
-                )}
+            <button onClick={() => setIsOpen((prevState) => !prevState)}>
+                {isOpen ? <IconClosed /> : <IconHamburgerMenu />}
             </button>
+            {isOpen && <HamburgerMenu closeMenu={() => setIsOpen(false)} />}
             {session && session.user && (
                 <div className="flex flex-col pr-2">
                     {session && session.user?.image && (
@@ -86,6 +52,78 @@ const Header = () => {
                     </button>
                 </div>
             )}
+        </div>
+    );
+};
+
+const HamburgerMenu = ({ closeMenu }: { closeMenu: () => void }) => {
+    return (
+        <div className="flex flex-col absolute top-0 z-10 dark:bg-slate-700 bg-white w-full h-full">
+            <HamburgerHeader closeMenu={closeMenu} />
+            <HamburgerBody />
+        </div>
+    );
+};
+
+const HamburgerHeader = ({ closeMenu }: { closeMenu: () => void }) => {
+    const { theme, setTheme } = useTheme();
+
+    return (
+        <div className="flex items-center min-h-[15vh] md:max-h-[15vh] p-3 flex-0">
+            <button
+                className={
+                    'flex-1' + theme === 'light'
+                        ? lightModeToggleStyles
+                        : darkModeToggleStyles
+                }
+                onClick={() => {
+                    setTheme(theme === 'light' ? 'dark' : 'light');
+                }}
+            >
+                {theme === 'light' ? <IconMoon /> : <IconSun />}
+            </button>
+            <h1 className="flex-[5] text-4xl md:text-5xl font-extrabold text-center">
+                Menu
+            </h1>
+            <button
+                className={
+                    'flex-1' + theme === 'light'
+                        ? lightModeToggleStyles
+                        : darkModeToggleStyles
+                }
+                onClick={() => closeMenu()}
+            >
+                <IconClosed />
+            </button>
+        </div>
+    );
+};
+
+const HamburgerBody = () => {
+    const { data: session } = useSession();
+    let links = [];
+    if (session?.user && session?.user?.email) {
+        links.push({ name: 'Home', href: '/' }),
+            links.push({ name: 'View Expenses', href: '/expenses' });
+        links.push({ name: 'Create Expense', href: '/expenses' });
+        links.push({ name: 'About', href: '/about' });
+    } else {
+        links.push(
+            { name: 'Home', href: '/' },
+            { name: 'Sign In', href: '/signin' },
+            { name: 'About', href: '/about' }
+        );
+    }
+
+    return (
+        <div className="flex flex-col flex-1 p-3">
+            {links.map((link) => (
+                <Link href={link.href} key={link.href}>
+                    <button className="dark:hover:bg-slate-800 flex-1">
+                        {link.name}
+                    </button>
+                </Link>
+            ))}
         </div>
     );
 };
