@@ -13,8 +13,10 @@ Track expenses and income to get an accurate and visual representation of your e
 -   [x] Calculate total expenses
 -   [x] Auth (Register, Signin) using credentials
 -   [x] Responsive
--   [] Remove "expenses" title
--   [] Add graphics and landing page
+-   [x] Remove "expenses" title
+-   [x] Add graphics and landing page
+-   [] Add an about page
+-   [] Link "learn more" to about page
 -   [] Create expense card (nicer ui instead list of expenses)
 -   [] Add chart to show relationship between income, balance and expenses
 -   [] Transitions
