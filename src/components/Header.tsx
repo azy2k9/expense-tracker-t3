@@ -101,12 +101,14 @@ const HamburgerHeader = ({ closeMenu }: { closeMenu: () => void }) => {
 
 const HamburgerBody = () => {
     const { data: session } = useSession();
-    let links = [];
+    const links = [];
     if (session?.user && session?.user?.email) {
-        links.push({ name: 'Home', href: '/' }),
-            links.push({ name: 'View Expenses', href: '/expenses' });
-        links.push({ name: 'Create Expense', href: '/expenses' });
-        links.push({ name: 'About', href: '/about' });
+        links.push(
+            { name: 'Home', href: '/' },
+            { name: 'View Expenses', href: '/expenses' },
+            { name: 'Create Expense', href: '/expenses' },
+            { name: 'About', href: '/about' }
+        );
     } else {
         links.push(
             { name: 'Home', href: '/' },
