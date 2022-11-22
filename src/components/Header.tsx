@@ -15,7 +15,6 @@ const darkModeToggleStyles =
     'text-green-500 border-2 border-green-500 hover:bg-green-600/50 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center dark:border-green-500 dark:text-green-500 dark:hover:text-green-500 dark:focus:ring-green-600';
 
 const Header = () => {
-    const { data: session } = useSession();
     const [isOpen, setIsOpen] = useState(false);
 
     return (
@@ -31,6 +30,25 @@ const Header = () => {
                 {isOpen ? <IconClosed /> : <IconHamburgerMenu />}
             </button>
             {isOpen && <HamburgerMenu closeMenu={() => setIsOpen(false)} />}
+        </div>
+    );
+};
+
+const HamburgerMenu = ({ closeMenu }: { closeMenu: () => void }) => {
+    return (
+        <div className="flex flex-col absolute top-0 z-10 dark:bg-slate-700 bg-white w-full h-full">
+            <HamburgerHeader closeMenu={closeMenu} />
+            <HamburgerBody closeMenu={closeMenu} />
+        </div>
+    );
+};
+
+const HamburgerHeader = ({ closeMenu }: { closeMenu: () => void }) => {
+    const { theme, setTheme } = useTheme();
+    const { data: session } = useSession();
+
+    return (
+        <div className="flex items-center min-h-[15vh] md:max-h-[15vh] p-3 flex-0">
             {session && session.user && (
                 <div className="flex flex-col pr-2">
                     {session && session.user?.image && (
@@ -52,24 +70,6 @@ const Header = () => {
                     </button>
                 </div>
             )}
-        </div>
-    );
-};
-
-const HamburgerMenu = ({ closeMenu }: { closeMenu: () => void }) => {
-    return (
-        <div className="flex flex-col absolute top-0 z-10 dark:bg-slate-700 bg-white w-full h-full">
-            <HamburgerHeader closeMenu={closeMenu} />
-            <HamburgerBody closeMenu={closeMenu} />
-        </div>
-    );
-};
-
-const HamburgerHeader = ({ closeMenu }: { closeMenu: () => void }) => {
-    const { theme, setTheme } = useTheme();
-
-    return (
-        <div className="flex items-center min-h-[15vh] md:max-h-[15vh] p-3 flex-0">
             <button
                 className={
                     'flex-1' + theme === 'light'
