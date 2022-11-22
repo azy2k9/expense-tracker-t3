@@ -60,7 +60,7 @@ const HamburgerMenu = ({ closeMenu }: { closeMenu: () => void }) => {
     return (
         <div className="flex flex-col absolute top-0 z-10 dark:bg-slate-700 bg-white w-full h-full">
             <HamburgerHeader closeMenu={closeMenu} />
-            <HamburgerBody />
+            <HamburgerBody closeMenu={closeMenu} />
         </div>
     );
 };
@@ -99,7 +99,7 @@ const HamburgerHeader = ({ closeMenu }: { closeMenu: () => void }) => {
     );
 };
 
-const HamburgerBody = () => {
+const HamburgerBody = ({ closeMenu }: { closeMenu: () => void }) => {
     const { data: session } = useSession();
     const links = [];
     if (session?.user && session?.user?.email) {
@@ -121,7 +121,10 @@ const HamburgerBody = () => {
         <div className="flex flex-col flex-1 p-3">
             {links.map((link) => (
                 <Link href={link.href} key={link.href}>
-                    <button className="dark:hover:bg-slate-800 flex-1">
+                    <button
+                        className="dark:hover:bg-slate-800 flex-1"
+                        onClick={() => closeMenu()}
+                    >
                         {link.name}
                     </button>
                 </Link>
