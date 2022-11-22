@@ -44,7 +44,7 @@ const Home: NextPage = () => {
                                     Get Started
                                 </button>
                             </Link>
-                            <Link href="/learn-more">
+                            <Link href="/about">
                                 <span className="text-blue-400 pt-4 sm:text-lg">
                                     Learn more
                                 </span>
