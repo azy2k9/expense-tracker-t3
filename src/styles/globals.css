@@ -4,6 +4,9 @@
 
 @layer utilities {
     .full-height {
+        height: calc(100vh);
+    }
+    .main-height {
         min-height: calc(90vh);
     }
 }

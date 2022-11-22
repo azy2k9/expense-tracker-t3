@@ -10,7 +10,7 @@ import { ThemeProvider } from 'next-themes';
 
 const MyApp: AppType = ({ Component, pageProps }) => {
     const router = useRouter();
-    const isHomepage = router.pathname === '/';
+    const isOnHomepage = router.pathname === '/';
 
     return (
         <>
@@ -29,7 +29,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
             </Head>
             <ThemeProvider>
                 <SessionProvider session={pageProps.session}>
-                    <Header noTitle={isHomepage} />
+                    {!isOnHomepage && <Header />}
                     <Component {...pageProps} />
                 </SessionProvider>
             </ThemeProvider>
