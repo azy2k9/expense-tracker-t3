@@ -45,7 +45,7 @@ const Home: NextPage = () => {
                                 </button>
                             </Link>
                             <Link href="/about">
-                                <span className="text-blue-400 pt-4 sm:text-lg">
+                                <span className="text-blue-400 pt-4 sm:text-lg cursor-pointer">
                                     Learn more
                                 </span>
                             </Link>
