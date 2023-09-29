@@ -9,7 +9,9 @@ interface ModalProps {
   onPrimaryClick: () => void;
   open: boolean;
   onClose: () => void;
+  style?: 'default' | 'danger';
 }
+
 const Modal = ({
   title,
   children,
@@ -17,6 +19,7 @@ const Modal = ({
   onPrimaryClick,
   open,
   onClose,
+  style = 'default',
 }: ModalProps) => {
   const cancelButtonRef = useRef(null);
 
@@ -68,7 +71,11 @@ const Modal = ({
                 <div className="bg-gray-50 dark:bg-slate-600 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                   <button
                     type="button"
-                    className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-400 hover:bg-green-500 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                    className={`w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm ${
+                      style === 'default'
+                        ? 'bg-green-400 hover:bg-green-500 focus:ring-green-500'
+                        : 'bg-red-400 hover:bg-red-500 focus:ring-red-500'
+                    }`}
                     onClick={onPrimaryClick}
                   >
                     {primaryBtnText}
