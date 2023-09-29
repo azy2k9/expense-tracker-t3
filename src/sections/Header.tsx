@@ -3,12 +3,11 @@ import { getSession } from 'next-auth/react';
 import React from 'react';
 
 import Link from 'next/link';
-import DarkMode from '../components/DarkMode';
-import UserProfile from '../components/UserProfile';
+import Menu from '../components/Menu';
 
 const Title = ({ includeTitle }: { includeTitle?: boolean }) => {
   return (
-    <h1 className="text-4xl md:text-[3.25rem] font-extrabold flex-1 text-center">
+    <h1 className="h-11 text-4xl md:text-[3.25rem] font-extrabold flex-1 text-center">
       {!includeTitle && (
         <Link href={'/'}>
           <span className="hover:cursor-pointer">
@@ -22,10 +21,9 @@ const Title = ({ includeTitle }: { includeTitle?: boolean }) => {
 
 const Header = ({ includeTitle = true }: { includeTitle?: boolean }) => {
   return (
-    <div className="flex items-center mt-8 md:mt-12 md:max-h-[10vh]">
+    <div className="flex items-center mt-12 pr-2">
       <Title includeTitle={includeTitle} />
-      <DarkMode />
-      <UserProfile />
+      <Menu />
     </div>
   );
 };
