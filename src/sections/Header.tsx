@@ -8,7 +8,7 @@ import UserProfile from '../components/UserProfile';
 
 const Title = ({ includeTitle }: { includeTitle?: boolean }) => {
   return (
-    <h1 className="text-4xl md:text-[4rem] font-extrabold flex-1 text-center mt-8 md:mt-12 min-h-[10vh] md:max-h-[10vh]">
+    <h1 className="text-4xl md:text-[3.25rem] font-extrabold flex-1 text-center">
       {!includeTitle && (
         <Link href={'/'}>
           <span className="hover:cursor-pointer">
@@ -22,7 +22,7 @@ const Title = ({ includeTitle }: { includeTitle?: boolean }) => {
 
 const Header = ({ includeTitle = true }: { includeTitle?: boolean }) => {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center mt-8 md:mt-12 md:max-h-[10vh]">
       <Title includeTitle={includeTitle} />
       <DarkMode />
       <UserProfile />

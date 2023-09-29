@@ -4,12 +4,10 @@ import { signOut, useSession } from 'next-auth/react';
 
 const UserProfile = () => {
   const { data: session } = useSession();
-
   const isUserLoggedIn = session && session.user;
 
   return (
     <div className="flex flex-col pr-2">
-      {!isUserLoggedIn && <div>Sign in</div>}
       {isUserLoggedIn && session.user?.image && (
         <div className="flex justify-center pb-1">
           <Image
