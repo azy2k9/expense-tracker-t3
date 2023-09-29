@@ -10,94 +10,94 @@ import FormField from '../components/FormField';
 import Layout from '../components/Layout';
 
 const Signup = () => {
-    const router = useRouter();
-    const {
-        handleSubmit,
-        control,
-        formState: { errors, isSubmitting },
-    } = useForm<SignUpForm>({
-        resolver: zodResolver(SignUpSchema),
-        mode: 'onBlur',
-    });
+  const router = useRouter();
+  const {
+    handleSubmit,
+    control,
+    formState: { isSubmitting },
+  } = useForm<SignUpForm>({
+    resolver: zodResolver(SignUpSchema),
+    mode: 'onBlur',
+  });
 
-    return (
-        <Layout
-            className="flex-col items-center justify-center"
-            loading={isSubmitting}
+  return (
+    <Layout
+      className="flex-col items-center justify-center"
+      loading={isSubmitting}
+    >
+      <h1 className="text-4xl font-bold pb-8">Sign Up</h1>
+      <form
+        className="flex flex-col w-full max-w-md"
+        onSubmit={handleSubmit((d) => {
+          console.log('hi');
+          console.log(d);
+        })}
+      >
+        <FormField
+          name="name"
+          placeholder="Name..."
+          isSubmitting={isSubmitting}
+          control={control}
+        />
+        <FormField
+          name="email"
+          placeholder="Email..."
+          isSubmitting={isSubmitting}
+          control={control}
+        />
+        <FormField
+          name="password"
+          placeholder="Password..."
+          isSubmitting={isSubmitting}
+          type="password"
+          control={control}
+        />
+        <button type="submit" className="btn btn-primary">
+          Sign Up
+        </button>
+        <button
+          className="btn btn-primary"
+          onClick={async (e) => {
+            e.preventDefault();
+            await signIn('google', {
+              callbackUrl: '/expenses',
+            });
+          }}
         >
-            <h1 className="text-4xl font-bold pb-8">Sign Up</h1>
-            <form
-                className="flex flex-col w-full max-w-md"
-                onSubmit={handleSubmit((d) => {
-                    console.log('hi');
-                    console.log(d);
-                })}
-            >
-                <FormField
-                    name="name"
-                    placeholder="Name..."
-                    isSubmitting={isSubmitting}
-                    control={control}
-                />
-                <FormField
-                    name="email"
-                    placeholder="Email..."
-                    isSubmitting={isSubmitting}
-                    control={control}
-                />
-                <FormField
-                    name="password"
-                    placeholder="Password..."
-                    isSubmitting={isSubmitting}
-                    type="password"
-                    control={control}
-                />
-                <button type="submit" className="btn btn-primary">
-                    Sign Up
-                </button>
-                <button
-                    className="btn btn-primary"
-                    onClick={async (e) => {
-                        e.preventDefault();
-                        await signIn('google', {
-                            callbackUrl: '/expenses',
-                        });
-                    }}
-                >
-                    <GoogleIcon size="22px" className="mr-2" />
-                    <span>Sign Up with Google</span>
-                </button>
-                <button
-                    className="btn btn-primary"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        router.push('/signin');
-                    }}
-                >
-                    Sign In
-                </button>
-            </form>
-        </Layout>
-    );
+          <GoogleIcon size="22px" className="mr-2" />
+          <span>Sign Up with Google</span>
+        </button>
+        <button
+          className="btn btn-primary"
+          onClick={(e) => {
+            e.preventDefault();
+            router.push('/signin');
+          }}
+        >
+          Sign In
+        </button>
+      </form>
+    </Layout>
+  );
 };
 
 export async function getServerSideProps(ctx: NextPageContext) {
-    const session = await getSession(ctx);
+  const session = await getSession(ctx);
 
-    if (session?.user) {
-        return {
-            redirect: {
-                destination: '/expenses',
-                permanent: false,
-            },
-        };
-    }
-
+  if (session?.user) {
     return {
-        props: {
-            session,
-        },
+      redirect: {
+        destination: '/expenses',
+        permanent: false,
+      },
     };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
 }
 
 export default Signup;
