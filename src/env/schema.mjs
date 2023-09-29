@@ -1,17 +1,23 @@
 // @ts-check
-import { z } from "zod";
+import { z } from 'zod';
 
 /**
  * Specify your server-side environment variables schema here.
  * This way you can ensure the app isn't built with invalid env vars.
  */
 export const serverSchema = z.object({
-  DATABASE_URL: z.string().url(),
-  NODE_ENV: z.enum(["development", "production", "test"]),
+  POSTGRES_URL: z.string(),
+  POSTGRES_PRISMA_URL: z.string(),
+  POSTGRES_URL_NON_POOLING: z.string().optional(),
+  POSTGRES_USER: z.string(),
+  POSTGRES_HOST: z.string(),
+  POSTGRES_PASSWORD: z.string(),
+  POSTGRES_DATABASE: z.string(),
+  NODE_ENV: z.enum(['development', 'production', 'test']),
   NEXTAUTH_SECRET: z.string(),
   NEXTAUTH_URL: z.string().url().optional(),
   GOOGLE_CLIENT_ID: z.string(),
-  GOOGLE_CLIENT_SECRET: z.string()
+  GOOGLE_CLIENT_SECRET: z.string(),
 });
 
 /**
