@@ -43,7 +43,7 @@ const FormField = ({
         <input
           {...field}
           type="radio"
-          className="p-3 text-green-400 border-2 border-green-400 focus:border-green-500 focus:ring-green-500"
+          className="p-3 text-green-600 border-2 border-green-400 focus:border-green-500 focus:ring-green-500"
           disabled={isSubmitting}
           value={value}
           id={placeholder}
@@ -62,10 +62,10 @@ const FormField = ({
             {...field}
             placeholder={placeholder}
             type={showPassword ? 'text' : 'password'}
-            className="rounded-lg p-4 w-full my-1 text-slate-700 border-2 border-green-400 focus:border-green-500 focus:ring-green-500"
+            className="rounded-lg p-4 w-full my-1 text-slate-700 border-2 border-slate-400 focus:border-slate-500 focus:ring-green-500"
             disabled={isSubmitting}
           />
-          <div className="absolute top-5 right-4 text-green-400 hover:text-green-500">
+          <div className="absolute top-5 right-4 text-slate-500 hover:text-slate-600">
             <button className="w-6" onClick={handleShowPassword}>
               {showPassword ? <EyeIcon /> : <EyeOffIcon />}
             </button>
@@ -80,14 +80,14 @@ const FormField = ({
     return (
       <div className="form-control">
         <div className="relative">
-          <div className="absolute top-[22px] left-4 text-green-400 hover:text-green-500">
+          <div className="absolute top-[22px] left-4 text-slate-600 hover:text-slate-700">
             <span>{leftAdornment}</span>
           </div>
           <input
             {...field}
             placeholder={placeholder}
             type={'text'}
-            className=" rounded-lg p-4 pl-8 w-full my-1 text-green-400 border-2 border-green-400 focus:border-green-500 focus:ring-green-500"
+            className=" rounded-lg p-4 pl-8 w-full my-1 text-slate-700 border-2 border-slate-400 focus:border-slate-500 focus:ring-green-500"
             disabled={isSubmitting}
           />
         </div>
@@ -102,7 +102,7 @@ const FormField = ({
         {...field}
         placeholder={placeholder}
         type={type}
-        className="rounded-lg p-4 w-full my-1 text-slate-700 border-2 border-green-400 focus:border-green-500 focus:ring-green-500"
+        className="rounded-lg p-4 w-full my-1 text-slate-700 border-2 border-slate-400 focus:border-slate-500 focus:ring-green-500"
         disabled={isSubmitting}
       />
       <p className="text-red-300">{error?.message}</p>
