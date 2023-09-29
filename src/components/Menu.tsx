@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Drawer from './Drawer';
+import Transition from './Transition';
 
 const MenuOpen = () => (
   <svg
@@ -39,6 +40,7 @@ const MenuClosed = () => (
 
 const Menu = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const closeDrawer = () => setIsOpen(false);
 
   return (
     <>
@@ -46,7 +48,9 @@ const Menu = () => {
         {isOpen && <MenuOpen />}
         {!isOpen && <MenuClosed />}
       </button>
-      <Drawer isOpen={isOpen} closeDrawer={() => setIsOpen(false)} />
+      <Transition isDrawer isOpen={isOpen}>
+        <Drawer isOpen={isOpen} closeDrawer={closeDrawer} />
+      </Transition>
     </>
   );
 };
