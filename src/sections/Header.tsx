@@ -1,9 +1,10 @@
 import { NextPageContext } from 'next';
-import { getSession, signOut, useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import React from 'react';
-import Image from 'next/image';
+
 import Link from 'next/link';
 import DarkMode from '../components/DarkMode';
+import UserProfile from '../components/UserProfile';
 
 const Title = ({ includeTitle }: { includeTitle?: boolean }) => {
   return (
@@ -20,30 +21,11 @@ const Title = ({ includeTitle }: { includeTitle?: boolean }) => {
 };
 
 const Header = ({ includeTitle = true }: { includeTitle?: boolean }) => {
-  const { data: session } = useSession();
-
   return (
     <div className="flex items-center">
       <Title includeTitle={includeTitle} />
       <DarkMode />
-      {session && session.user && (
-        <div className="flex flex-col pr-2">
-          {session && session.user?.image && (
-            <div className="flex justify-center pb-1">
-              <Image
-                alt={session.user.name || 'profile picture'}
-                className="rounded-full"
-                src={session.user?.image}
-                height={50}
-                width={50}
-              />
-            </div>
-          )}
-          <button onClick={() => signOut()} className="btn btn-primary btn-xs">
-            Sign Out
-          </button>
-        </div>
-      )}
+      <UserProfile />
     </div>
   );
 };
