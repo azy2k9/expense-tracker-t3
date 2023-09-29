@@ -1,14 +1,17 @@
 import { useSession } from 'next-auth/react';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ExpenseCard from '../components/ExpenseCard';
 import Layout from '../components/Layout';
 import { trpc } from '../utils/trpc';
+import CreateExpenseModal from '../sections/CreateExpenseModal';
 
 const Expenses = () => {
   const { data } = useSession();
   const router = useRouter();
+  const [isCreatingExpense, setIsCreatingExpense] = useState(false);
+  const handleCloseCreateExpenseModal = () => setIsCreatingExpense(false);
+  const handleShowCreateExpenseModal = () => setIsCreatingExpense(true);
 
   useEffect(() => {
     if (!data || (data && !data.user)) {
@@ -25,9 +28,12 @@ const Expenses = () => {
       loading={expenses.isLoading || stats.isLoading}
     >
       <div className="flex justify-center mt-8">
-        <Link href="/create-expense">
-          <button className="btn btn-primary btn-md">Create an expense</button>
-        </Link>
+        <button
+          className="btn btn-primary btn-md"
+          onClick={handleShowCreateExpenseModal}
+        >
+          Create an expense
+        </button>
       </div>
       <div className="flex my-8 py-4 font-bold bg-white rounded-md shadow-2xl text-black justify-around dark:bg-slate-800">
         <div className="flex flex-col items-center text-red-500">
@@ -48,6 +54,10 @@ const Expenses = () => {
           <ExpenseCard key={e.id} expense={e} />
         ))}
       </div>
+      <CreateExpenseModal
+        handleClose={handleCloseCreateExpenseModal}
+        isCreatingExpense={isCreatingExpense}
+      />
     </Layout>
   );
 };
