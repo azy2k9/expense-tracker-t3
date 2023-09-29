@@ -24,7 +24,12 @@ const Expenses = () => {
       className="flex-col justify-start"
       loading={expenses.isLoading || stats.isLoading}
     >
-      <div className="flex my-4 py-4 font-bold bg-white rounded-md shadow-2xl text-black justify-around dark:bg-slate-800">
+      <div className="flex justify-center mt-8">
+        <Link href="/create-expense">
+          <button className="btn btn-primary btn-md">Create an expense</button>
+        </Link>
+      </div>
+      <div className="flex my-8 py-4 font-bold bg-white rounded-md shadow-2xl text-black justify-around dark:bg-slate-800">
         <div className="flex flex-col items-center text-red-500">
           <h3>Total Expenses</h3>
           <h3>£{stats.data?.totalExpenses}</h3>
@@ -37,11 +42,6 @@ const Expenses = () => {
           <h3>Total Income</h3>
           <h3>£{stats.data?.totalIncome}</h3>
         </div>
-      </div>
-      <div className="flex justify-center">
-        <Link href="/create-expense">
-          <button className="btn btn-primary btn-md">Create an expense</button>
-        </Link>
       </div>
       <div>
         {expenses.data?.map((e) => (
