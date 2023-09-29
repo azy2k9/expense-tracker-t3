@@ -15,14 +15,14 @@ charset = utf-8
 
 # Tab indentation (no size specified)
 [Makefile]
-indent_style = tab
+indent_style = space
 
 # Indentation override for all JS under lib directory
 [**.js, **.ts, **.tsx]
 indent_style = space
-indent_size = 4
+indent_size = 2
 
 # Matches the exact files either package.json or .travis.yml
 [{package.json,.travis.yml}]
 indent_style = space
-indent_size = 4
+indent_size = 2
