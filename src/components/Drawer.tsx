@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import { useTheme } from 'next-themes';
 import { useRouter } from 'next/router';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import OutsideClickHandler from 'react-outside-click-handler';
 
 const DrawerButton = ({
@@ -60,7 +60,13 @@ const Drawer = forwardRef<HTMLDivElement, IProps>(function Drawer(
             Home
           </DrawerButton>
           <DrawerButton
-            handleClick={() => router.push(isSignedIn ? '/signout' : '/signin')}
+            handleClick={() => {
+              if (isSignedIn) {
+                signOut();
+              }
+
+              router.push('/signin');
+            }}
             closeDrawer={closeDrawer}
           >
             Sign {isSignedIn ? 'Out' : 'In'}
