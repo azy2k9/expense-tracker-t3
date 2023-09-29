@@ -46,7 +46,7 @@ const Menu = () => {
         {isOpen && <MenuOpen />}
         {!isOpen && <MenuClosed />}
       </button>
-      <Drawer isOpen={isOpen} />
+      <Drawer isOpen={isOpen} closeDrawer={() => setIsOpen(false)} />
     </>
   );
 };
