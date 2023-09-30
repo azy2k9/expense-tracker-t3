@@ -62,23 +62,25 @@ const ExpenseCard = ({ expense }: { expense: Expense }) => {
   return (
     <div className="flex items-center">
       <div
-        className={`flex justify-between relative my-4 mr-2 p-8 text-xl rounded-md text-white w-full shadow-md shadow-slate-700 ${
+        className={`flex justify-between items-center relative my-4 mr-2 p-8 text-xl rounded-md text-white w-full shadow-md shadow-slate-700 ${
           expense.type === 'EXPENSE' ? 'bg-red-500' : 'bg-green-500'
         }`}
       >
         <span>{expense.name}</span>
-        <span>£{expense.price}</span>
-      </div>
-      <div className="flex flex-col">
-        <button
-          className="btn btn-md btn-danger mb-1"
-          onClick={() => setIsDeletingExpense(true)}
-        >
-          Delete
-        </button>
-        <button className="btn btn-md btn-info" onClick={handleShowModal}>
-          Edit
-        </button>
+        <div className="flex">
+          <span className="self-center">£{expense.price}</span>
+          <div className="flex flex-col">
+            <button
+              className="btn btn-md btn-danger mb-1"
+              onClick={() => setIsDeletingExpense(true)}
+            >
+              Delete
+            </button>
+            <button className="btn btn-md btn-info" onClick={handleShowModal}>
+              Edit
+            </button>
+          </div>
+        </div>
       </div>
       <Modal
         title="Edit Expenses"
