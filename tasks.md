@@ -1,0 +1,2 @@
+- [] - Allow for lists of expenses
+- [] - Pie chart showing the ratio of expenses vs income
