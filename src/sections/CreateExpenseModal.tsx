@@ -30,6 +30,7 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
     resolver: zodResolver(ExpenseFormSchema),
     mode: 'onBlur',
     defaultValues: {
+      type: 'EXPENSE',
       date: new Date().toISOString().split('T')[0],
     },
   });
