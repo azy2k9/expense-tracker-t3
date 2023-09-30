@@ -25,6 +25,7 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
     handleSubmit,
     control,
     formState: { isSubmitting },
+    reset,
   } = useForm<ExpenseForm>({
     resolver: zodResolver(ExpenseFormSchema),
     mode: 'onBlur',
@@ -41,6 +42,7 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
       date: data.date,
     });
     handleClose();
+    reset();
   };
 
   return (
