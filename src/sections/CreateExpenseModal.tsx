@@ -41,6 +41,7 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
       price: data.price,
       type: data.type,
       date: data.date,
+      listId: '', //TODO: Add list thats currently selected
     });
     handleClose();
     reset();
@@ -50,7 +51,10 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
     <Modal
       title="Create Expense"
       open={isCreatingExpense}
-      onClose={handleClose}
+      onClose={() => {
+        handleClose();
+        reset();
+      }}
       primaryBtnText="Create Expense"
       onPrimaryClick={handleSubmit(onSubmit)}
     >

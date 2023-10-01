@@ -5,6 +5,7 @@ import ExpenseCard from '../components/ExpenseCard';
 import Layout from '../components/Layout';
 import { trpc } from '../utils/trpc';
 import CreateExpenseModal from '../sections/CreateExpenseModal';
+import CreateExpenseListModal from '../sections/CreateExpenseListModal';
 
 const Expenses = () => {
   const { data } = useSession();
@@ -12,6 +13,10 @@ const Expenses = () => {
   const [isCreatingExpense, setIsCreatingExpense] = useState(false);
   const handleCloseCreateExpenseModal = () => setIsCreatingExpense(false);
   const handleShowCreateExpenseModal = () => setIsCreatingExpense(true);
+
+  const [isCreatingList, setIsCreatingList] = useState(false);
+  const handleCloseCreateListModal = () => setIsCreatingList(false);
+  const handleShowCreateListModal = () => setIsCreatingList(true);
 
   useEffect(() => {
     if (!data || (data && !data.user)) {
@@ -33,6 +38,9 @@ const Expenses = () => {
           onClick={handleShowCreateExpenseModal}
         >
           Create an expense
+        </button>
+        <button className="btn btn-primary" onClick={handleShowCreateListModal}>
+          Create a list
         </button>
       </div>
       <div className="flex my-8 py-4 font-bold bg-white rounded-md shadow-2xl text-black justify-around dark:bg-slate-800">
@@ -57,6 +65,10 @@ const Expenses = () => {
       <CreateExpenseModal
         handleClose={handleCloseCreateExpenseModal}
         isCreatingExpense={isCreatingExpense}
+      />
+      <CreateExpenseListModal
+        handleClose={handleCloseCreateListModal}
+        isCreatingListExpense={isCreatingList}
       />
     </Layout>
   );
