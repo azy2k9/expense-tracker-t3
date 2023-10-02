@@ -9,6 +9,7 @@ import { trpc } from '../utils/trpc';
 import Modal from '../components/Modal';
 import FormField from '../components/FormField';
 import { useSession } from 'next-auth/react';
+import useAppState from '../hooks/useAppState';
 interface IProps {
   handleClose: () => void;
   isCreatingListExpense: boolean;
@@ -18,13 +19,19 @@ const CreateExpenseListModal = ({
   handleClose,
   isCreatingListExpense,
 }: IProps) => {
+  const { setAppState } = useAppState();
   const queryClient = trpc.useContext();
   const { data: session } = useSession();
 
+  const expenseLists = queryClient.getQueryData(['expenses.fetchExpenseLists']);
+  console.log({ expenseLists });
+
   const createExpenseList = trpc.proxy.expenses.createExpenseList.useMutation({
-    onSuccess() {
-      console.log('success creating list so invalidating');
-      queryClient.invalidateQueries(['expenses.fetchExpenseLists']);
+    async onSuccess() {
+      const newExpenseList = await queryClient.fetchQuery([
+        'expenses.fetchExpenseLists',
+      ]);
+      setAppState({ lists: newExpenseList });
     },
   });
 
