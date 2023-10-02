@@ -9,7 +9,6 @@ import { trpc } from '../utils/trpc';
 import Modal from '../components/Modal';
 import FormField from '../components/FormField';
 import { useSession } from 'next-auth/react';
-
 interface IProps {
   handleClose: () => void;
   isCreatingListExpense: boolean;
@@ -34,6 +33,8 @@ const CreateExpenseListModal = ({
     control,
     formState: { isSubmitting },
     reset,
+    setValue,
+    getValues,
   } = useForm<ExpenseListForm>({
     resolver: zodResolver(ExpenseListFormSchema),
     mode: 'onBlur',
@@ -66,14 +67,21 @@ const CreateExpenseListModal = ({
         reset();
       }}
       primaryBtnText="Create List"
-      onPrimaryClick={handleSubmit(onSubmit)}
+      onPrimaryClick={() => {
+        const data = getValues();
+        onSubmit(data);
+      }}
     >
-      <form className="flex flex-col w-full">
+      <form className="flex flex-col w-full" onSubmit={handleSubmit(onSubmit)}>
         <FormField
           name="name"
           placeholder="List Name..."
           isSubmitting={isSubmitting}
           control={control}
+          onChange={(fieldName, fieldValue) => {
+            // @ts-expect-error need to fix these typings
+            setValue(fieldName, fieldValue);
+          }}
         />
       </form>
     </Modal>

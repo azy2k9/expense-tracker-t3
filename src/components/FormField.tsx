@@ -10,6 +10,7 @@ interface IFormField {
   isSubmitting: boolean;
   value?: string;
   leftAdornment?: string;
+  onChange: (fieldName: string, fieldValue: string) => void;
 }
 
 type FormFieldProps = IFormField & UseControllerProps<any>;
@@ -22,6 +23,7 @@ const FormField = ({
   isSubmitting,
   value,
   leftAdornment,
+  onChange,
 }: FormFieldProps) => {
   const {
     field,
@@ -48,6 +50,7 @@ const FormField = ({
           value={value}
           id={placeholder}
           checked={field.value === value}
+          onChange={(e) => onChange(field.name, e.target.value)}
         />
         {placeholder}
       </label>
@@ -64,6 +67,7 @@ const FormField = ({
             type={showPassword ? 'text' : 'password'}
             className="rounded-lg p-4 w-full my-1 text-slate-700 border-2 border-slate-400 focus:border-slate-500 focus:ring-green-500"
             disabled={isSubmitting}
+            onChange={(e) => onChange(field.name, e.target.value)}
           />
           <div className="absolute top-5 right-4 text-slate-500 hover:text-slate-600">
             <button className="w-6" onClick={handleShowPassword}>
@@ -89,6 +93,7 @@ const FormField = ({
             type={'text'}
             className=" rounded-lg p-4 pl-8 w-full my-1 text-slate-700 border-2 border-slate-400 focus:border-slate-500 focus:ring-green-500"
             disabled={isSubmitting}
+            onChange={(e) => onChange(field.name, e.target.value)}
           />
         </div>
         <p className="text-red-300">{error?.message}</p>
@@ -104,6 +109,7 @@ const FormField = ({
         type={type}
         className="rounded-lg p-4 w-full my-1 text-slate-700 border-2 border-slate-400 focus:border-slate-500 focus:ring-green-500"
         disabled={isSubmitting}
+        onChange={(e) => onChange(field.name, e.target.value)}
       />
       <p className="text-red-300">{error?.message}</p>
     </div>

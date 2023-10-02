@@ -15,6 +15,7 @@ const Signup = () => {
     handleSubmit,
     control,
     formState: { isSubmitting },
+    setValue,
   } = useForm<SignUpForm>({
     resolver: zodResolver(SignUpSchema),
     mode: 'onBlur',
@@ -30,7 +31,6 @@ const Signup = () => {
         className="flex flex-col w-full max-w-md"
         onSubmit={handleSubmit((d) => {
           console.log('hi');
-          console.log(d);
         })}
       >
         <FormField
@@ -38,12 +38,20 @@ const Signup = () => {
           placeholder="Name..."
           isSubmitting={isSubmitting}
           control={control}
+          onChange={(fieldName, fieldValue) => {
+            // @ts-expect-error need to fix these typings
+            setValue(fieldName, fieldValue);
+          }}
         />
         <FormField
           name="email"
           placeholder="Email..."
           isSubmitting={isSubmitting}
           control={control}
+          onChange={(fieldName, fieldValue) => {
+            // @ts-expect-error need to fix these typings
+            setValue(fieldName, fieldValue);
+          }}
         />
         <FormField
           name="password"
@@ -51,6 +59,10 @@ const Signup = () => {
           isSubmitting={isSubmitting}
           type="password"
           control={control}
+          onChange={(fieldName, fieldValue) => {
+            // @ts-expect-error need to fix these typings
+            setValue(fieldName, fieldValue);
+          }}
         />
         <button type="submit" className="btn btn-primary">
           Sign Up

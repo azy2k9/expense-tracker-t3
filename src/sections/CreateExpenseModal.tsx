@@ -26,6 +26,7 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
     control,
     formState: { isSubmitting },
     reset,
+    setValue,
   } = useForm<ExpenseForm>({
     resolver: zodResolver(ExpenseFormSchema),
     mode: 'onBlur',
@@ -58,12 +59,16 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
       primaryBtnText="Create Expense"
       onPrimaryClick={handleSubmit(onSubmit)}
     >
-      <form className="flex flex-col w-full">
+      <form className="flex flex-col w-full" onSubmit={handleSubmit(onSubmit)}>
         <FormField
           name="name"
           placeholder="Name..."
           isSubmitting={isSubmitting}
           control={control}
+          onChange={(fieldName, fieldValue) => {
+            // @ts-expect-error need to fix these typings
+            setValue(fieldName, fieldValue);
+          }}
         />
         <FormField
           name="price"
@@ -71,6 +76,10 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
           isSubmitting={isSubmitting}
           control={control}
           leftAdornment="£"
+          onChange={(fieldName, fieldValue) => {
+            // @ts-expect-error need to fix these typings
+            setValue(fieldName, fieldValue);
+          }}
         />
         <div className="flex justify-center py-8">
           <FormField
@@ -80,6 +89,10 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
             control={control}
             type="radio"
             value="EXPENSE"
+            onChange={(fieldName, fieldValue) => {
+              // @ts-expect-error need to fix these typings
+              setValue(fieldName, fieldValue);
+            }}
           />
           <FormField
             name="type"
@@ -88,6 +101,10 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
             control={control}
             type="radio"
             value="INCOME"
+            onChange={(fieldName, fieldValue) => {
+              // @ts-expect-error need to fix these typings
+              setValue(fieldName, fieldValue);
+            }}
           />
         </div>
         <FormField
@@ -96,6 +113,10 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
           isSubmitting={isSubmitting}
           control={control}
           type="date"
+          onChange={(fieldName, fieldValue) => {
+            // @ts-expect-error need to fix these typings
+            setValue(fieldName, fieldValue);
+          }}
         />
       </form>
     </Modal>
