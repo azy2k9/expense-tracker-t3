@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { trpc } from '../utils/trpc';
 import Modal from '../components/Modal';
 import FormField from '../components/FormField';
+import useAppState from '../hooks/useAppState';
 
 interface IProps {
   handleClose: () => void;
@@ -13,6 +14,7 @@ interface IProps {
 
 const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
   const queryClient = trpc.useContext();
+  const { appState } = useAppState();
 
   const createExpense = trpc.proxy.expenses.createExpense.useMutation({
     onSuccess() {
@@ -31,6 +33,7 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
     resolver: zodResolver(ExpenseFormSchema),
     mode: 'onBlur',
     defaultValues: {
+      listId: appState.selectedList,
       type: 'EXPENSE',
       date: new Date().toISOString().split('T')[0],
     },
@@ -42,7 +45,7 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
       price: data.price,
       type: data.type,
       date: data.date,
-      listId: '', //TODO: Add list thats currently selected
+      listId: appState.selectedList,
     });
     handleClose();
     reset();
