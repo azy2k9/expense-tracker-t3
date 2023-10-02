@@ -6,6 +6,7 @@ import Layout from '../components/Layout';
 import { trpc } from '../utils/trpc';
 import CreateExpenseModal from '../sections/CreateExpenseModal';
 import CreateExpenseListModal from '../sections/CreateExpenseListModal';
+import useAppState from '../hooks/useAppState';
 
 const Expenses = () => {
   const { data } = useSession();
@@ -18,13 +19,27 @@ const Expenses = () => {
   const handleCloseCreateListModal = () => setIsCreatingList(false);
   const handleShowCreateListModal = () => setIsCreatingList(true);
 
+  const { setAppState } = useAppState();
+
   useEffect(() => {
     if (!data || (data && !data.user)) {
       router.push('/signin');
     }
   }, [data, data?.user, router]);
 
-  const expenses = trpc.proxy.expenses.fetchExpenses.useQuery();
+  const expenseLists = trpc.proxy.expenses.fetchExpenseLists.useQuery(
+    undefined,
+    {
+      onSuccess(data) {
+        if (data.length) {
+          setAppState({ lists: data, selectedList: data[0]?.id });
+        }
+      },
+    }
+  );
+  const expenses = trpc.proxy.expenses.fetchExpenses.useQuery(undefined, {
+    enabled: !!expenseLists.data?.length,
+  });
   const stats = trpc.proxy.expenses.calculateStats.useQuery();
 
   return (
