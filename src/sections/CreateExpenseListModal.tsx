@@ -85,10 +85,6 @@ const CreateExpenseListModal = ({
           placeholder="List Name..."
           isSubmitting={isSubmitting}
           control={control}
-          onChange={(fieldName, fieldValue) => {
-            // @ts-expect-error need to fix these typings
-            setValue(fieldName, fieldValue);
-          }}
         />
       </form>
     </Modal>

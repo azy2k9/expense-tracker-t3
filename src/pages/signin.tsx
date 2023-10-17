@@ -38,10 +38,6 @@ const Signin = () => {
           placeholder="Email..."
           isSubmitting={isSubmitting}
           control={control}
-          onChange={(fieldName, fieldValue) => {
-            // @ts-expect-error need to fix these typings
-            setValue(fieldName, fieldValue);
-          }}
         />
         <FormField
           name="password"
@@ -49,10 +45,6 @@ const Signin = () => {
           isSubmitting={isSubmitting}
           type="password"
           control={control}
-          onChange={(fieldName, fieldValue) => {
-            // @ts-expect-error need to fix these typings
-            setValue(fieldName, fieldValue);
-          }}
         />
         <button
           type="submit"

@@ -6,12 +6,13 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { ExpenseForm, ExpenseFormSchema } from '../utils/validationSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import FormField from './FormField';
+import useAppState from '../hooks/useAppState';
 
 const ExpenseCard = ({ expense }: { expense: Expense }) => {
   const queryClient = trpc.useContext();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isDeletingExpense, setIsDeletingExpense] = useState(false);
-
+  const { appState } = useAppState();
   const deleteExpense = trpc.proxy.expenses.deleteExpense.useMutation({
     onSuccess() {
       queryClient.invalidateQueries(['expenses.fetchExpenses']);
@@ -35,6 +36,7 @@ const ExpenseCard = ({ expense }: { expense: Expense }) => {
 
   const {
     handleSubmit,
+    getValues,
     control,
     formState: { isSubmitting },
   } = useForm<ExpenseForm>({
@@ -55,6 +57,7 @@ const ExpenseCard = ({ expense }: { expense: Expense }) => {
       price: data.price,
       type: data.type,
       date: data.date,
+      listId: appState.selectedList,
     });
     handleCloseModal();
   };
@@ -85,9 +88,15 @@ const ExpenseCard = ({ expense }: { expense: Expense }) => {
         open={isModalVisible}
         onClose={handleCloseModal}
         primaryBtnText="Edit Expense"
-        onPrimaryClick={handleSubmit(onSubmit)}
+        onPrimaryClick={() => {
+          const data = getValues();
+          onSubmit(data);
+        }}
       >
-        <form className="flex flex-col w-full">
+        <form
+          className="flex flex-col w-full"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <FormField
             name="name"
             placeholder="Name..."
