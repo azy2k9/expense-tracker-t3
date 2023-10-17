@@ -23,13 +23,7 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
     },
   });
 
-  const {
-    handleSubmit,
-    control,
-    formState: { isSubmitting },
-    reset,
-    setValue,
-  } = useForm<ExpenseForm>({
+  const { handleSubmit, control, reset } = useForm<ExpenseForm>({
     resolver: zodResolver(ExpenseFormSchema),
     mode: 'onBlur',
     defaultValues: {
@@ -63,16 +57,10 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
       onPrimaryClick={handleSubmit(onSubmit)}
     >
       <form className="flex flex-col w-full" onSubmit={handleSubmit(onSubmit)}>
-        <FormField
-          name="name"
-          placeholder="Name..."
-          isSubmitting={isSubmitting}
-          control={control}
-        />
+        <FormField name="name" placeholder="Name..." control={control} />
         <FormField
           name="price"
           placeholder="Price..."
-          isSubmitting={isSubmitting}
           control={control}
           leftAdornment="£"
         />
@@ -80,7 +68,6 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
           <FormField
             name="type"
             placeholder="Expense"
-            isSubmitting={isSubmitting}
             control={control}
             type="radio"
             value="EXPENSE"
@@ -88,7 +75,6 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
           <FormField
             name="type"
             placeholder="Income"
-            isSubmitting={isSubmitting}
             control={control}
             type="radio"
             value="INCOME"
@@ -97,7 +83,6 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
         <FormField
           name="date"
           placeholder="Date..."
-          isSubmitting={isSubmitting}
           control={control}
           type="date"
         />

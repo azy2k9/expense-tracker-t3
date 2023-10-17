@@ -13,7 +13,6 @@ const Signin = () => {
     handleSubmit,
     control,
     formState: { isSubmitting },
-    setValue,
   } = useForm<SigninForm>({
     resolver: zodResolver(SigninSchema),
     mode: 'onBlur',
@@ -33,16 +32,10 @@ const Signin = () => {
           console.log({ email: d.email, password: d.password });
         })}
       >
-        <FormField
-          name="email"
-          placeholder="Email..."
-          isSubmitting={isSubmitting}
-          control={control}
-        />
+        <FormField name="email" placeholder="Email..." control={control} />
         <FormField
           name="password"
           placeholder="Password..."
-          isSubmitting={isSubmitting}
           type="password"
           control={control}
         />

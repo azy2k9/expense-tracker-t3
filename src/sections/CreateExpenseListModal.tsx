@@ -23,9 +23,6 @@ const CreateExpenseListModal = ({
   const queryClient = trpc.useContext();
   const { data: session } = useSession();
 
-  const expenseLists = queryClient.getQueryData(['expenses.fetchExpenseLists']);
-  console.log({ expenseLists });
-
   const createExpenseList = trpc.proxy.expenses.createExpenseList.useMutation({
     async onSuccess() {
       const newExpenseList = await queryClient.fetchQuery([
@@ -35,14 +32,7 @@ const CreateExpenseListModal = ({
     },
   });
 
-  const {
-    handleSubmit,
-    control,
-    formState: { isSubmitting },
-    reset,
-    setValue,
-    getValues,
-  } = useForm<ExpenseListForm>({
+  const { handleSubmit, control, reset, getValues } = useForm<ExpenseListForm>({
     resolver: zodResolver(ExpenseListFormSchema),
     mode: 'onBlur',
     defaultValues: {
@@ -80,12 +70,7 @@ const CreateExpenseListModal = ({
       }}
     >
       <form className="flex flex-col w-full" onSubmit={handleSubmit(onSubmit)}>
-        <FormField
-          name="name"
-          placeholder="List Name..."
-          isSubmitting={isSubmitting}
-          control={control}
-        />
+        <FormField name="name" placeholder="List Name..." control={control} />
       </form>
     </Modal>
   );

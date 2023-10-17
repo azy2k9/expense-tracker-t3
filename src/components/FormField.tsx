@@ -6,8 +6,6 @@ interface IFormField {
   name: string;
   placeholder?: string;
   type?: 'text' | 'select' | 'password' | 'number' | 'date' | 'radio';
-  label?: string;
-  isSubmitting: boolean;
   value?: string;
   leftAdornment?: string;
 }
@@ -19,13 +17,13 @@ const FormField = ({
   placeholder,
   control,
   type = 'text',
-  isSubmitting,
   value,
   leftAdornment,
 }: FormFieldProps) => {
   const {
     field,
     fieldState: { error },
+    formState: { isSubmitting },
   } = useController({
     control,
     name,

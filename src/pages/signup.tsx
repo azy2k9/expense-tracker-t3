@@ -33,22 +33,11 @@ const Signup = () => {
           console.log('hi');
         })}
       >
-        <FormField
-          name="name"
-          placeholder="Name..."
-          isSubmitting={isSubmitting}
-          control={control}
-        />
-        <FormField
-          name="email"
-          placeholder="Email..."
-          isSubmitting={isSubmitting}
-          control={control}
-        />
+        <FormField name="name" placeholder="Name..." control={control} />
+        <FormField name="email" placeholder="Email..." control={control} />
         <FormField
           name="password"
           placeholder="Password..."
-          isSubmitting={isSubmitting}
           type="password"
           control={control}
         />
