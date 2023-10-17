@@ -1,5 +1,5 @@
 - [] - Allow for lists of expenses
-  - [] - Fetch all lists and show them in a drop down list
+  - [x] - Fetch all lists and show them in a drop down list
+  - [x] - When creating an expense allow the ability to add the expense to a different list
   - [] - Fetch all expenses based on the selected drop down list
-  - [] - When creating an expense allow the ability to add the expense to a different list
 - [] - Pie chart showing the ratio of expenses vs income
