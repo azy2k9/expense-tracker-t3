@@ -12,12 +12,12 @@ interface Context {
 }
 
 interface AppContextInterface {
-  selectedList: string;
+  selectedListId: string;
   lists: Array<List>;
 }
 
 const initialAppState: AppContextInterface = {
-  selectedList: '',
+  selectedListId: '',
   lists: [],
 };
 

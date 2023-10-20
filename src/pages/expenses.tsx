@@ -3,24 +3,28 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import ExpenseCard from '../components/ExpenseCard';
 import Layout from '../components/Layout';
-import { trpc } from '../utils/trpc';
 import CreateExpenseModal from '../sections/CreateExpenseModal';
 import CreateExpenseListModal from '../sections/CreateExpenseListModal';
-import useAppState from '../hooks/useAppState';
 import SelectedExpenseList from '../sections/SelectedExpenseList';
+import { useExpenses } from '../hooks/useExpenses';
+import { useExpenseLists } from '../hooks/useExpenseLists';
+import { useStats } from '../hooks/useStats';
 
 const Expenses = () => {
   const { data } = useSession();
   const router = useRouter();
+  const { hasExpenseLists } = useExpenseLists();
+
   const [isCreatingExpense, setIsCreatingExpense] = useState(false);
   const handleCloseCreateExpenseModal = () => setIsCreatingExpense(false);
   const handleShowCreateExpenseModal = () => setIsCreatingExpense(true);
 
   const [isCreatingList, setIsCreatingList] = useState(false);
-  const handleCloseCreateListModal = () => setIsCreatingList(false);
+  const handleCloseCreateListModal = () => setIsCreatingList(hasExpenseLists);
   const handleShowCreateListModal = () => setIsCreatingList(true);
 
-  const { setAppState } = useAppState();
+  const expenses = useExpenses();
+  const stats = useStats();
 
   useEffect(() => {
     if (!data || (data && !data.user)) {
@@ -28,26 +32,8 @@ const Expenses = () => {
     }
   }, [data, data?.user, router]);
 
-  const expenseLists = trpc.proxy.expenses.fetchExpenseLists.useQuery(
-    undefined,
-    {
-      onSuccess(data) {
-        if (data.length) {
-          setAppState({ lists: data, selectedList: data[0]?.id });
-        }
-      },
-    }
-  );
-  const expenses = trpc.proxy.expenses.fetchExpenses.useQuery(undefined, {
-    enabled: !!expenseLists.data?.length,
-  });
-  const stats = trpc.proxy.expenses.calculateStats.useQuery();
-
   return (
-    <Layout
-      className="flex-col justify-start"
-      loading={expenses.isLoading || stats.isLoading}
-    >
+    <Layout className="flex-col justify-start" loading={expenses.isLoading}>
       <div className="flex justify-center mt-8">
         <button
           className="btn btn-primary btn-md"

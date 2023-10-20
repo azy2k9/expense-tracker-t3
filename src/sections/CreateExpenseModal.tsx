@@ -15,10 +15,15 @@ interface IProps {
 const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
   const queryClient = trpc.useContext();
   const { appState } = useAppState();
+  const fetchExpenses = trpc.proxy.expenses.fetchExpenses.useMutation({
+    onSuccess() {
+      queryClient.invalidateQueries(['expenses.calculateStats']);
+    },
+  });
 
   const createExpense = trpc.proxy.expenses.createExpense.useMutation({
     onSuccess() {
-      queryClient.invalidateQueries(['expenses.fetchExpenses']);
+      fetchExpenses.mutate({ listId: appState.selectedListId });
       queryClient.invalidateQueries(['expenses.calculateStats']);
     },
   });
@@ -27,7 +32,7 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
     resolver: zodResolver(ExpenseFormSchema),
     mode: 'onBlur',
     defaultValues: {
-      listId: appState.selectedList,
+      listId: appState.selectedListId,
       type: 'EXPENSE',
       date: new Date().toISOString().split('T')[0],
     },
@@ -39,7 +44,7 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
       price: data.price,
       type: data.type,
       date: data.date,
-      listId: appState.selectedList,
+      listId: appState.selectedListId,
     });
     handleClose();
     reset();

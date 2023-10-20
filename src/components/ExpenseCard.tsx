@@ -13,6 +13,7 @@ const ExpenseCard = ({ expense }: { expense: Expense }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isDeletingExpense, setIsDeletingExpense] = useState(false);
   const { appState } = useAppState();
+
   const deleteExpense = trpc.proxy.expenses.deleteExpense.useMutation({
     onSuccess() {
       queryClient.invalidateQueries(['expenses.fetchExpenses']);
@@ -52,7 +53,7 @@ const ExpenseCard = ({ expense }: { expense: Expense }) => {
       price: data.price,
       type: data.type,
       date: data.date,
-      listId: appState.selectedList,
+      listId: appState.selectedListId,
     });
     handleCloseModal();
   };

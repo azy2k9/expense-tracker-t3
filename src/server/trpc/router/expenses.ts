@@ -6,46 +6,60 @@ import {
 import z from 'zod';
 
 export const expensesRouter = t.router({
-  calculateStats: authedProcedure.query(async ({ ctx }) => {
-    const expenses = await ctx.prisma.expense.findMany({
-      where: {
-        userId: ctx.session.user.id,
-      },
-    });
+  calculateStats: authedProcedure
+    .input(
+      z.object({
+        listId: z.string(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const expenses = await ctx.prisma.expense.findMany({
+        where: {
+          userId: ctx.session.user.id,
+          listId: input.listId,
+        },
+      });
 
-    const expenseStats = expenses.reduce(
-      (sum, current) => {
-        if (current.type === 'EXPENSE') {
-          sum.expense += Number(current.price);
-        } else {
-          sum.income += Number(current.price);
-        }
-        return sum;
-      },
-      { income: 0, expense: 0 }
-    );
+      const expenseStats = expenses.reduce(
+        (sum, current) => {
+          if (current.type === 'EXPENSE') {
+            sum.expense += Number(current.price);
+          } else {
+            sum.income += Number(current.price);
+          }
+          return sum;
+        },
+        { income: 0, expense: 0 }
+      );
 
-    const balance = expenseStats.income - expenseStats.expense;
+      const balance = expenseStats.income - expenseStats.expense;
 
-    return {
-      totalExpenses: expenseStats.expense.toFixed(2),
-      totalIncome: expenseStats.income.toFixed(2),
-      balance: balance.toFixed(2),
-    };
-  }),
-  fetchExpenses: authedProcedure.query(async ({ ctx }) => {
-    const expenses = await ctx.prisma.expense.findMany({
-      where: {
-        userId: ctx.session.user.id,
-      },
-      orderBy: {
-        // Income first
-        type: 'desc',
-      },
-    });
+      return {
+        totalExpenses: expenseStats.expense.toFixed(2),
+        totalIncome: expenseStats.income.toFixed(2),
+        balance: balance.toFixed(2),
+      };
+    }),
+  fetchExpenses: authedProcedure
+    .input(
+      z.object({
+        listId: z.string(),
+      })
+    )
+    .query(async ({ ctx, input }) => {
+      const expenses = await ctx.prisma.expense.findMany({
+        where: {
+          userId: ctx.session.user.id,
+          listId: input.listId,
+        },
+        orderBy: {
+          // Income first
+          type: 'desc',
+        },
+      });
 
-    return expenses;
-  }),
+      return expenses;
+    }),
   fetchExpenseLists: authedProcedure.query(async ({ ctx }) => {
     const expenseList = await ctx.prisma.list.findMany({
       where: {
