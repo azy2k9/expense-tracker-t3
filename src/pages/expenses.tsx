@@ -39,12 +39,11 @@ const Expenses = () => {
           className="btn btn-primary btn-md"
           onClick={handleShowCreateExpenseModal}
         >
-          Create an expense
+          Create Expense
         </button>
         <button className="btn btn-primary" onClick={handleShowCreateListModal}>
-          Create a list
+          Create List
         </button>
-        <SelectedExpenseList />
       </div>
       <div className="flex my-8 py-4 font-bold bg-white rounded-md shadow-2xl text-black justify-around dark:bg-slate-800">
         <div className="flex flex-col items-center text-red-500">

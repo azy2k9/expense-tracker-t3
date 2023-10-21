@@ -3,35 +3,38 @@
 @tailwind utilities;
 
 @layer utilities {
-    .full-height {
-        min-height: calc(90vh);
-    }
+  .full-height {
+    min-height: calc(90vh);
+  }
+  .select-center {
+    text-align-last: center;
+  }
 }
 
 @layer components {
-    .btn {
-        @apply sm:text-xl text-white py-3 px-8 rounded-full mx-2 dark:text-white;
-    }
+  .btn {
+    @apply sm:text-xl text-white py-3 px-8 rounded-full mx-2 dark:text-white;
+  }
 
-    .btn-primary {
-        @apply bg-green-500 hover:bg-green-600 dark:bg-green-600;
-    }
+  .btn-primary {
+    @apply bg-green-500 hover:bg-green-600 dark:bg-green-600;
+  }
 
-    .btn-xs {
-        @apply text-xs py-1 px-3;
-    }
-    
-    .btn-md {
-        @apply text-base py-2 px-4;
-    }
+  .btn-xs {
+    @apply text-xs py-1 px-3;
+  }
 
-    .btn-info {
-        @apply bg-blue-500 hover:bg-blue-600 dark:bg-blue-600;
-    }
+  .btn-md {
+    @apply text-base py-2 px-4;
+  }
 
-    .btn-danger {
-        @apply bg-red-500 hover:bg-red-600 dark:bg-red-600;
-    }
+  .btn-info {
+    @apply bg-blue-500 hover:bg-blue-600 dark:bg-blue-600;
+  }
+
+  .btn-danger {
+    @apply bg-red-500 hover:bg-red-600 dark:bg-red-600;
+  }
 }
 
 /* @layer components {
@@ -41,25 +44,25 @@
 } */
 
 .loader {
-    border-top-color: #3498db;
-    -webkit-animation: spinner 1.5s linear infinite;
-    animation: spinner 1.5s linear infinite;
+  border-top-color: #3498db;
+  -webkit-animation: spinner 1.5s linear infinite;
+  animation: spinner 1.5s linear infinite;
 }
 
 @-webkit-keyframes spinner {
-    0% {
-        -webkit-transform: rotate(0deg);
-    }
-    100% {
-        -webkit-transform: rotate(360deg);
-    }
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
 }
 
 @keyframes spinner {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
