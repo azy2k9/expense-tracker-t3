@@ -5,7 +5,6 @@ import ExpenseCard from '../components/ExpenseCard';
 import Layout from '../components/Layout';
 import CreateExpenseModal from '../sections/CreateExpenseModal';
 import CreateExpenseListModal from '../sections/CreateExpenseListModal';
-import SelectedExpenseList from '../sections/SelectedExpenseList';
 import { useExpenses } from '../hooks/useExpenses';
 import { useExpenseLists } from '../hooks/useExpenseLists';
 import { useStats } from '../hooks/useStats';

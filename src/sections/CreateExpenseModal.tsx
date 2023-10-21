@@ -15,16 +15,11 @@ interface IProps {
 const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
   const queryClient = trpc.useContext();
   const { appState } = useAppState();
-  const fetchExpenses = trpc.proxy.expenses.fetchExpenses.useMutation({
-    onSuccess() {
-      queryClient.invalidateQueries(['expenses.calculateStats']);
-    },
-  });
 
   const createExpense = trpc.proxy.expenses.createExpense.useMutation({
     onSuccess() {
-      fetchExpenses.mutate({ listId: appState.selectedListId });
       queryClient.invalidateQueries(['expenses.calculateStats']);
+      queryClient.invalidateQueries(['expenses.fetchExpenses']);
     },
   });
 

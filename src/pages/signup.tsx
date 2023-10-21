@@ -15,7 +15,6 @@ const Signup = () => {
     handleSubmit,
     control,
     formState: { isSubmitting },
-    setValue,
   } = useForm<SignUpForm>({
     resolver: zodResolver(SignUpSchema),
     mode: 'onBlur',
@@ -29,7 +28,7 @@ const Signup = () => {
       <h1 className="text-4xl font-bold pb-8">Sign Up</h1>
       <form
         className="flex flex-col w-full max-w-md"
-        onSubmit={handleSubmit((d) => {
+        onSubmit={handleSubmit(() => {
           console.log('hi');
         })}
       >
