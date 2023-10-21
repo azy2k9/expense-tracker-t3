@@ -15,6 +15,7 @@ const Signup = () => {
     handleSubmit,
     control,
     formState: { isSubmitting },
+    setValue,
   } = useForm<SignUpForm>({
     resolver: zodResolver(SignUpSchema),
     mode: 'onBlur',
@@ -30,25 +31,13 @@ const Signup = () => {
         className="flex flex-col w-full max-w-md"
         onSubmit={handleSubmit((d) => {
           console.log('hi');
-          console.log(d);
         })}
       >
-        <FormField
-          name="name"
-          placeholder="Name..."
-          isSubmitting={isSubmitting}
-          control={control}
-        />
-        <FormField
-          name="email"
-          placeholder="Email..."
-          isSubmitting={isSubmitting}
-          control={control}
-        />
+        <FormField name="name" placeholder="Name..." control={control} />
+        <FormField name="email" placeholder="Email..." control={control} />
         <FormField
           name="password"
           placeholder="Password..."
-          isSubmitting={isSubmitting}
           type="password"
           control={control}
         />

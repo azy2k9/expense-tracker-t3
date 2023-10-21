@@ -6,11 +6,13 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { ExpenseForm, ExpenseFormSchema } from '../utils/validationSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import FormField from './FormField';
+import useAppState from '../hooks/useAppState';
 
 const ExpenseCard = ({ expense }: { expense: Expense }) => {
   const queryClient = trpc.useContext();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isDeletingExpense, setIsDeletingExpense] = useState(false);
+  const { appState } = useAppState();
 
   const deleteExpense = trpc.proxy.expenses.deleteExpense.useMutation({
     onSuccess() {
@@ -33,11 +35,7 @@ const ExpenseCard = ({ expense }: { expense: Expense }) => {
   const handleCloseModal = () => setIsModalVisible(false);
   const handleShowModal = () => setIsModalVisible(true);
 
-  const {
-    handleSubmit,
-    control,
-    formState: { isSubmitting },
-  } = useForm<ExpenseForm>({
+  const { handleSubmit, getValues, control } = useForm<ExpenseForm>({
     resolver: zodResolver(ExpenseFormSchema),
     mode: 'onBlur',
     defaultValues: {
@@ -55,6 +53,7 @@ const ExpenseCard = ({ expense }: { expense: Expense }) => {
       price: data.price,
       type: data.type,
       date: data.date,
+      listId: appState.selectedListId,
     });
     handleCloseModal();
   };
@@ -85,19 +84,19 @@ const ExpenseCard = ({ expense }: { expense: Expense }) => {
         open={isModalVisible}
         onClose={handleCloseModal}
         primaryBtnText="Edit Expense"
-        onPrimaryClick={handleSubmit(onSubmit)}
+        onPrimaryClick={() => {
+          const data = getValues();
+          onSubmit(data);
+        }}
       >
-        <form className="flex flex-col w-full">
-          <FormField
-            name="name"
-            placeholder="Name..."
-            isSubmitting={isSubmitting}
-            control={control}
-          />
+        <form
+          className="flex flex-col w-full"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <FormField name="name" placeholder="Name..." control={control} />
           <FormField
             name="price"
             placeholder="Price..."
-            isSubmitting={isSubmitting}
             control={control}
             leftAdornment="£"
           />
@@ -105,7 +104,6 @@ const ExpenseCard = ({ expense }: { expense: Expense }) => {
             <FormField
               name="type"
               placeholder="Expense"
-              isSubmitting={isSubmitting}
               control={control}
               type="radio"
               value="EXPENSE"
@@ -113,7 +111,6 @@ const ExpenseCard = ({ expense }: { expense: Expense }) => {
             <FormField
               name="type"
               placeholder="Income"
-              isSubmitting={isSubmitting}
               control={control}
               type="radio"
               value="INCOME"
@@ -122,7 +119,6 @@ const ExpenseCard = ({ expense }: { expense: Expense }) => {
           <FormField
             name="date"
             placeholder="Date..."
-            isSubmitting={isSubmitting}
             control={control}
             type="date"
           />

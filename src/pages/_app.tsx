@@ -7,6 +7,7 @@ import Head from 'next/head';
 import Header from '../sections/Header';
 import { useRouter } from 'next/router';
 import { ThemeProvider } from 'next-themes';
+import { AppContextProvider } from '../hooks/useAppState';
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   const router = useRouter();
@@ -24,12 +25,14 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         />
         <meta charSet="utf-8" />
       </Head>
-      <ThemeProvider>
-        <SessionProvider session={pageProps.session}>
-          <Header includeTitle={isHomepage} />
-          <Component {...pageProps} />
-        </SessionProvider>
-      </ThemeProvider>
+      <AppContextProvider>
+        <ThemeProvider>
+          <SessionProvider session={pageProps.session}>
+            <Header includeTitle={isHomepage} />
+            <Component {...pageProps} />
+          </SessionProvider>
+        </ThemeProvider>
+      </AppContextProvider>
     </>
   );
 };

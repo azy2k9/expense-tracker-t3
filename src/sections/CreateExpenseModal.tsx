@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { trpc } from '../utils/trpc';
 import Modal from '../components/Modal';
 import FormField from '../components/FormField';
+import useAppState from '../hooks/useAppState';
 
 interface IProps {
   handleClose: () => void;
@@ -13,23 +14,25 @@ interface IProps {
 
 const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
   const queryClient = trpc.useContext();
-
-  const createExpense = trpc.proxy.expenses.createExpense.useMutation({
+  const { appState } = useAppState();
+  const fetchExpenses = trpc.proxy.expenses.fetchExpenses.useMutation({
     onSuccess() {
-      queryClient.invalidateQueries(['expenses.fetchExpenses']);
       queryClient.invalidateQueries(['expenses.calculateStats']);
     },
   });
 
-  const {
-    handleSubmit,
-    control,
-    formState: { isSubmitting },
-    reset,
-  } = useForm<ExpenseForm>({
+  const createExpense = trpc.proxy.expenses.createExpense.useMutation({
+    onSuccess() {
+      fetchExpenses.mutate({ listId: appState.selectedListId });
+      queryClient.invalidateQueries(['expenses.calculateStats']);
+    },
+  });
+
+  const { handleSubmit, control, reset } = useForm<ExpenseForm>({
     resolver: zodResolver(ExpenseFormSchema),
     mode: 'onBlur',
     defaultValues: {
+      listId: appState.selectedListId,
       type: 'EXPENSE',
       date: new Date().toISOString().split('T')[0],
     },
@@ -41,6 +44,7 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
       price: data.price,
       type: data.type,
       date: data.date,
+      listId: appState.selectedListId,
     });
     handleClose();
     reset();
@@ -50,21 +54,18 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
     <Modal
       title="Create Expense"
       open={isCreatingExpense}
-      onClose={handleClose}
+      onClose={() => {
+        handleClose();
+        reset();
+      }}
       primaryBtnText="Create Expense"
       onPrimaryClick={handleSubmit(onSubmit)}
     >
-      <form className="flex flex-col w-full">
-        <FormField
-          name="name"
-          placeholder="Name..."
-          isSubmitting={isSubmitting}
-          control={control}
-        />
+      <form className="flex flex-col w-full" onSubmit={handleSubmit(onSubmit)}>
+        <FormField name="name" placeholder="Name..." control={control} />
         <FormField
           name="price"
           placeholder="Price..."
-          isSubmitting={isSubmitting}
           control={control}
           leftAdornment="£"
         />
@@ -72,7 +73,6 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
           <FormField
             name="type"
             placeholder="Expense"
-            isSubmitting={isSubmitting}
             control={control}
             type="radio"
             value="EXPENSE"
@@ -80,7 +80,6 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
           <FormField
             name="type"
             placeholder="Income"
-            isSubmitting={isSubmitting}
             control={control}
             type="radio"
             value="INCOME"
@@ -89,7 +88,6 @@ const CreateExpenseModal = ({ handleClose, isCreatingExpense }: IProps) => {
         <FormField
           name="date"
           placeholder="Date..."
-          isSubmitting={isSubmitting}
           control={control}
           type="date"
         />

@@ -3,15 +3,28 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import ExpenseCard from '../components/ExpenseCard';
 import Layout from '../components/Layout';
-import { trpc } from '../utils/trpc';
 import CreateExpenseModal from '../sections/CreateExpenseModal';
+import CreateExpenseListModal from '../sections/CreateExpenseListModal';
+import SelectedExpenseList from '../sections/SelectedExpenseList';
+import { useExpenses } from '../hooks/useExpenses';
+import { useExpenseLists } from '../hooks/useExpenseLists';
+import { useStats } from '../hooks/useStats';
 
 const Expenses = () => {
   const { data } = useSession();
   const router = useRouter();
+  const { hasExpenseLists } = useExpenseLists();
+
   const [isCreatingExpense, setIsCreatingExpense] = useState(false);
   const handleCloseCreateExpenseModal = () => setIsCreatingExpense(false);
   const handleShowCreateExpenseModal = () => setIsCreatingExpense(true);
+
+  const [isCreatingList, setIsCreatingList] = useState(false);
+  const handleCloseCreateListModal = () => setIsCreatingList(hasExpenseLists);
+  const handleShowCreateListModal = () => setIsCreatingList(true);
+
+  const expenses = useExpenses();
+  const stats = useStats();
 
   useEffect(() => {
     if (!data || (data && !data.user)) {
@@ -19,20 +32,17 @@ const Expenses = () => {
     }
   }, [data, data?.user, router]);
 
-  const expenses = trpc.proxy.expenses.fetchExpenses.useQuery();
-  const stats = trpc.proxy.expenses.calculateStats.useQuery();
-
   return (
-    <Layout
-      className="flex-col justify-start"
-      loading={expenses.isLoading || stats.isLoading}
-    >
+    <Layout className="flex-col justify-start" loading={expenses.isLoading}>
       <div className="flex justify-center mt-8">
         <button
           className="btn btn-primary btn-md"
           onClick={handleShowCreateExpenseModal}
         >
-          Create an expense
+          Create Expense
+        </button>
+        <button className="btn btn-primary" onClick={handleShowCreateListModal}>
+          Create List
         </button>
       </div>
       <div className="flex my-8 py-4 font-bold bg-white rounded-md shadow-2xl text-black justify-around dark:bg-slate-800">
@@ -57,6 +67,10 @@ const Expenses = () => {
       <CreateExpenseModal
         handleClose={handleCloseCreateExpenseModal}
         isCreatingExpense={isCreatingExpense}
+      />
+      <CreateExpenseListModal
+        handleClose={handleCloseCreateListModal}
+        isCreatingListExpense={isCreatingList}
       />
     </Layout>
   );
